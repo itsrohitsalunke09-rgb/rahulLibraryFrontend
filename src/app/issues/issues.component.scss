@@ -1,0 +1,190 @@
+p {
+  color: var(--muted);
+}
+
+.header-filters {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding-left: 2.5rem;
+}
+
+.status-dropdown {
+  min-width: 180px;
+}
+
+::ng-deep .issues-table-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid var(--surface-border);
+}
+
+::ng-deep .issues-table-card .p-card-body {
+  padding: 0;
+}
+
+::ng-deep .issues-table-card .p-card-content {
+  padding: 1rem;
+}
+
+/* Dashboard Stats - Match dashboard screen design */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+/* Card overrides */
+:host ::ng-deep .clickable-stat-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid var(--line);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+:host ::ng-deep .clickable-stat-card .p-card-body {
+  padding: 0;
+  text-align: center;
+}
+
+:host ::ng-deep .clickable-stat-card .p-card-content {
+  padding: 0;
+}
+
+:host ::ng-deep .clickable-stat-card .p-card-header {
+  padding: 0.75rem 1.5rem 0;
+  border: none;
+  background: transparent;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: inter, serif;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.clickable-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.warn-card {
+  border-left: 4px solid #e3b57a;
+}
+
+.warn-card .stat-value {
+  color: #e3b57a;
+}
+
+/* Responsive grid */
+@media (max-width: 768px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* PrimeNG Table rounded corners */
+:host ::ng-deep .issues-table-card .p-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .issues-table-card .p-table .p-datatable-header,
+:host ::ng-deep .issues-table-card .p-table .p-datatable-thead > tr > th {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+:host ::ng-deep .issues-table-card .p-table .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+:host ::ng-deep .issues-table-card .p-table .p-datatable-tbody > tr:last-child > td:first-child {
+  border-bottom-left-radius: 0px;
+}
+
+:host ::ng-deep .issues-table-card .p-table .p-datatable-tbody > tr:last-child > td:last-child {
+  border-bottom-right-radius: 0px;
+}
+
+:host ::ng-deep .issues-table-card .p-table .p-datatable-thead > tr > th:first-child {
+  border-top-left-radius: 0px;
+}
+
+:host ::ng-deep .issues-table-card .p-table .p-datatable-thead > tr > th:last-child {
+  border-top-right-radius: 0px;
+}
+
+:host ::ng-deep .issues-table-card .p-datatable-wrapper {
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .issues-table-card .p-paginator {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.search-box {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem 1rem 1.25rem;
+}
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(47, 106, 74, 0.15);
+}
+
+:host ::ng-deep .catalog-card .p-card-header {
+  //background: var(--paper);
+  //border-bottom: 1px solid var(--line);
+  padding: 1rem 1.25rem 0rem 1.25rem;
+}
+:host ::ng-deep .p-datatable .p-paginator-bottom {
+  border-width: 0 0 0 0 !important;
+}

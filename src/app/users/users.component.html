@@ -1,0 +1,123 @@
+<section>
+  <header>
+    <div>
+      <h1>People</h1>
+    </div>
+<!--    <button class="btn" (click)="startNew()">Add person</button>-->
+    <i class="pi pi-plus" [style]="{ cursor: 'pointer' }"
+       (click)="startNew()" pTooltip="Add new account" tooltipPosition="left"></i>
+  </header>
+  <p-toast position="top-right"></p-toast>
+
+  <p-card styleClass="users-table-card">
+    <p-table
+      [value]="users"
+      [paginator]="true"
+      [rows]="pageSize"
+      [totalRecords]="totalElements"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [lazy]="true"
+      (onLazyLoad)="onPageChange($event)"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-sm"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowHover]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email || '-' }}</td>
+          <td>{{ user.phone || '-' }}</td>
+          <td>{{ user.role }}</td>
+          <td><span class="badge" [class.ok]="user.active" [class.danger]="!user.active">{{ user.active ? 'Active' : 'Inactive' }}</span></td>
+          <td>
+            <div class="action-icons">
+              <i
+                tooltipPosition="left"
+                class="pi pi-pencil"
+                (click)="edit(user)"
+                pTooltip="Edit account">
+              </i>
+
+              <i
+                tooltipPosition="left"
+                class="pi pi-trash"
+                *ngIf="isAdmin && user.role === 'STUDENT'"
+                pTooltip="Delete account"
+                (click)="delete(user)">
+              </i>
+            </div>
+          </td>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" style="text-align: center;">No users found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-dialog
+    [(visible)]="dialogVisible"
+    [modal]="true"
+    [closable]="true"
+    [closeOnEscape]="true"
+    [draggable]="false"
+    [resizable]="false"
+    [header]="editing?.id ? 'Edit account' : 'New account'"
+    [style]="{ width: '500px' }"
+    (onHide)="closeUserModal()">
+    <div *ngIf="editing" class="grid two">
+      <label class="field"><span>Full name</span><input [(ngModel)]="editing.fullName"></label>
+      <label class="field"><span>Username</span><input [(ngModel)]="editing.username"></label>
+      <label class="field"><span>Email</span><input [(ngModel)]="editing.email"></label>
+      <label class="field"><span>Phone</span><input type="text" [(ngModel)]="editing.phone" 
+                   placeholder="10-digit number (e.g., 9876543210)"
+                   maxlength="10"
+                   (input)="formatPhone($event)"></label>
+      <label class="field"><span>Date of birth</span><input type="date" [(ngModel)]="editing.dateOfBirth"></label>
+      <label class="field"><span>Address</span><input [(ngModel)]="editing.address"></label>
+      <label class="field">
+        <span>Role</span>
+        <select [(ngModel)]="editing.role">
+          <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+        </select>
+      </label>
+      <label class="field"><span>Password {{ editing.id ? '(leave blank to keep)' : '' }}</span><input type="password" [(ngModel)]="editing.password"></label>
+      <label class="field">
+        <span>Active</span>
+        <select [(ngModel)]="editing.active">
+          <option [ngValue]="true">Yes</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </label>
+    </div>
+    <ng-template pTemplate="footer">
+      <button class="btn" (click)="save()">Save</button>
+      <button class="btn secondary" (click)="closeUserModal()">Cancel</button>
+    </ng-template>
+  </p-dialog>
+
+  <p-confirmDialog>
+    <ng-template pTemplate="message" let-message>
+      <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+        <p>{{ message.message }}</p>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
+</section>

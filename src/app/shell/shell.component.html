@@ -1,0 +1,29 @@
+<div class="layout">
+  <aside>
+
+    <div class="brand profilecard">राहुल सार्व. वाचनालय </div>
+    <div class="profilecard">
+      <p-avatar
+        icon="pi pi-user"
+        styleClass="mr-2 "
+        size="large"
+        [style]="{ 'background-color': '#ece9fc', color: '#2a1261', cursor: 'pointer' }"
+        shape="circle"
+        (click)="navigateToProfile()"></p-avatar>
+    </div>
+
+    <p class="who">{{ user?.fullName }}<br><small>{{ user?.role }}</small></p>
+    <nav>
+      <a routerLink="/app/dashboard" routerLinkActive="active" *ngIf="can(['ADMIN','LIBRARIAN'])">Dashboard</a>
+      <a routerLink="/app/catalog" routerLinkActive="active">Catalog</a>
+      <a routerLink="/app/issues" routerLinkActive="active" *ngIf="can(['ADMIN','LIBRARIAN'])">Issues & returns</a>
+      <a routerLink="/app/users" routerLinkActive="active" *ngIf="can(['ADMIN'])">People</a>
+      <a routerLink="/app/my-books" routerLinkActive="active" *ngIf="can(['STUDENT'])">My books</a>
+      <a routerLink="/app/profile" routerLinkActive="active">My Profile</a>
+    </nav>
+    <button class="btn secondary" (click)="logout()">Sign out</button>
+  </aside>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

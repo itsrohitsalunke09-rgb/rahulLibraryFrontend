@@ -1,0 +1,327 @@
+<section>
+  <header>
+    <div>
+      <h1>Catalog</h1>
+    </div>
+    <div class="header-actions">
+<!--      <i class="pi pi-users" [style]="{ cursor: 'pointer' }"-->
+<!--         *ngIf="canManage" (click)="toggleReadersDialog()" pTooltip="View Readers" tooltipPosition="left"></i>-->
+      <i class="pi pi-file-import" [style]="{ cursor: 'pointer' }"
+         *ngIf="canManage" (click)="openImportModal()" pTooltip="Import Excel" tooltipPosition="left"></i>
+      <i class="pi pi-download" [style]="{ cursor: 'pointer' }"
+         *ngIf="canManage" (click)="downloadTemplate()" pTooltip="Download Template" tooltipPosition="left"></i>
+      <i class="pi pi-plus"  [style]="{ cursor: 'pointer' }"
+         *ngIf="canManage" (click)="startNew()" pTooltip="Add Book" tooltipPosition="left"></i>
+    </div>
+  </header>
+  <p-toast position="top-right"></p-toast>
+
+  <p-card styleClass="catalog-card">
+    <ng-template pTemplate="header">
+      <div class="card-header-content">
+<!--        <h2>Book Catalog</h2>-->
+        <div class="search-box">
+          <input type="text"
+                 pInputText
+                 [(ngModel)]="query"
+                 (input)="onGlobalFilter($event)"
+                 placeholder="Search titles, authors, registration number, publication or category"
+                 class="search-input">
+<!--          <button class="btn secondary" (click)="reload()">-->
+<!--            <i class="pi pi-search"></i>-->
+<!--          </button>-->
+<!--          <i class="pi pi-search" style="font-size: 1.2rem" (click)="reload()" pTooltip="Search"></i>-->
+        </div>
+      </div>
+    </ng-template>
+
+<p-table
+          [value]="books"
+          [paginator]="true"
+          [rows]="pageSize"
+          [totalRecords]="totalElements"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          [lazy]="true"
+          (onLazyLoad)="onPaginatorChange($event)"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          styleClass="p-datatable-sm"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowHover]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Reg. No.</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Category</th>
+          <th>Total</th>
+          <th>Available</th>
+          <th *ngIf="canManage"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-book>
+        <tr>
+          <td>
+            <div class="muted">{{ book.registrationNumber || book.category }}</div>
+          </td>
+          <td>
+            <strong [class.marathi]="book.category === 'Marathi Literature'">{{ book.title }}</strong>
+          </td>
+          <td [class.marathi]="book.category === 'Marathi Literature'">{{ book.author }}</td>
+          <td>{{ book.category }}</td>
+          <td>{{ book.totalCopies }}</td>
+          <td>{{ book.availableCopies }}</td>
+          <td *ngIf="canManage">
+
+            <i
+              class="pi pi-bookmark action-icon"
+              [style.visibility]="book.availableCopies > 0 ? 'visible' : 'hidden'"
+              (click)="openIssue(book); $event.stopPropagation()"
+              pTooltip="Issue the book">
+            </i>
+
+
+            <i
+              class="pi pi-pencil action-icon"
+              (click)="edit(book); $event.stopPropagation()"
+              pTooltip="Edit the book">
+            </i>
+
+            <i
+              class="pi pi-trash action-icon"
+              [hidden]="!isAdmin"
+              (click)="remove(book); $event.stopPropagation()"
+              pTooltip="Delete the book">
+            </i>
+
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" style="text-align: center;">No books found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p class="empty" *ngIf="!books.length && !query">No books match that search.</p>
+
+  <div class="modal-overlay" *ngIf="showReadersDialog" (click)="closeReadersDialog()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Current Readers ({{ students.length }})</h3>
+        <button class="modal-close" (click)="closeReadersDialog()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="reader-list" *ngIf="students.length > 0; else noReaders">
+          <div class="reader-item" *ngFor="let student of students">
+            <div class="reader-info">
+              <strong>{{ student.fullName }}</strong>
+              <span class="reader-username">@{{ student.username }}</span>
+            </div>
+            <div class="reader-details">
+              <span *ngIf="student.email" class="detail">{{ student.email }}</span>
+              <span *ngIf="student.phone" class="detail">{{ student.phone }}</span>
+            </div>
+          </div>
+        </div>
+        <ng-template #noReaders>
+          <p class="no-readers">No active readers found.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showBookReadersDialog" (click)="closeBookReadersDialog()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Readers of “<span [class.marathi]="selectedBook?.category === 'Marathi Literature'">{{ selectedBook?.title }}</span>” ({{ bookIssues.length }})</h3>
+        <button class="modal-close" (click)="closeBookReadersDialog()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="reader-list" *ngIf="bookIssues.length > 0; else noBookReaders">
+          <div class="reader-item" *ngFor="let issue of bookIssues">
+            <div class="reader-info">
+              <strong>{{ issue.studentName }}</strong>
+              <span class="reader-username">Issued by: {{ issue.issuedByName }}</span>
+            </div>
+            <div class="reader-details">
+              <span class="detail" [ngClass]="issue.status === 'OVERDUE' ? 'overdue' : ''">
+                <span class="badge" [ngClass]="badge(issue.status)">{{ issue.status }}</span>
+              </span>
+              <span class="detail">Issued: {{ issue.issueDate }}</span>
+              <span class="detail">Due: {{ issue.dueDate }}</span>
+              <span class="detail" *ngIf="issue.returnDate">Returned: {{ issue.returnDate }}</span>
+            </div>
+          </div>
+        </div>
+        <ng-template #noBookReaders>
+          <p class="no-readers">No readers for this book yet.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Issue Book Modal -->
+  <div class="modal-overlay" *ngIf="issueFor" (click)="closeIssueModal()">
+    <div class="modal issue-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Issue “<span [class.marathi]="issueFor.category === 'Marathi Literature'">{{ issueFor.title }}</span>”</h3>
+        <button class="modal-close" (click)="closeIssueModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid two">
+
+          <!-- Student -->
+          <label class="field">
+            <span>Student</span>
+
+            <p-autoComplete
+              #studentAutoComplete
+              class="student-autocomplete"
+              [(ngModel)]="selectedStudent"
+              [suggestions]="studentSuggestions"
+              (completeMethod)="searchStudents($event)"
+              (onSelect)="onStudentSelect($event)"
+              [minLength]="2"
+              placeholder="Search by name, email or username..."
+              field="fullName"
+              [dropdown]="false"
+              [autoHighlight]="true">
+
+              <ng-template let-student pTemplate="item">
+                <div class="student-option">
+                  <div class="student-name marathi">
+                    {{ student.fullName }}
+                  </div>
+
+                  <div class="student-meta">
+                    {{ student.username }} •
+                    {{ student.email || student.phone || '' }}
+                  </div>
+                </div>
+              </ng-template>
+
+              <ng-template let-student pTemplate="selectedItem">
+                <div class="selected-student marathi">
+                  {{ student.fullName }} ({{ student.username }})
+                </div>
+              </ng-template>
+
+            </p-autoComplete>
+          </label>
+
+
+          <!-- Days -->
+          <label class="field">
+            <span>Days</span>
+            <input
+              type="number"
+              min="1"
+              [(ngModel)]="days">
+          </label>
+
+        </div>
+        <div class="actions" style="margin-top: 50px; justify-content: flex-end;">
+          <button class="btn" (click)="issue()">Issue</button>
+          <button class="btn secondary" (click)="closeIssueModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Add/Edit Book Modal -->
+  <div class="modal-overlay" *ngIf="editing" (click)="closeBookModal()">
+    <div class="modal book-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>{{ editing.id ? 'Edit book' : 'New book' }}</h3>
+        <button class="modal-close" (click)="closeBookModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid two">
+          <label class="field"><span>Title</span><input [(ngModel)]="editing.title"></label>
+          <label class="field"><span>Author</span><input [(ngModel)]="editing.author"></label>
+          <label class="field"><span>Category</span><input [(ngModel)]="editing.category"></label>
+          <label class="field"><span>Total copies</span><input type="number" min="1" [(ngModel)]="editing.totalCopies"></label>
+          <label class="field"><span>Description</span><input [(ngModel)]="editing.description"></label>
+          <label class="field"><span>Date</span><input type="date" [(ngModel)]="editing.date"></label>
+          <label class="field"><span>Registration Number</span><input [(ngModel)]="editing.registrationNumber"></label>
+          <label class="field"><span>Publication</span><input [(ngModel)]="editing.publication"></label>
+          <label class="field"><span>Publication Year</span><input type="number" [(ngModel)]="editing.publicationYear"></label>
+          <label class="field"><span>Page Count</span><input type="number" [(ngModel)]="editing.pageCount"></label>
+          <label class="field"><span>Seller</span><input [(ngModel)]="editing.seller"></label>
+          <label class="field"><span>Receipt Number</span><input [(ngModel)]="editing.receiptNumber"></label>
+          <label class="field"><span>Price</span><input type="number" step="0.01" [(ngModel)]="editing.price"></label>
+        </div>
+        <div class="actions" style="margin-top: 16px; justify-content: flex-end;">
+          <button class="btn" (click)="save()">Save</button>
+          <button class="btn secondary" (click)="closeBookModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import Books Modal -->
+  <div class="modal-overlay" *ngIf="showImportModal" (click)="closeImportModal()">
+    <div class="modal import-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Import Books from Excel</h3>
+        <button class="modal-close" (click)="closeImportModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="import-instructions">
+          <h4>Instructions:</h4>
+          <ul>
+            <li>Download the CSV template to see the required format</li>
+            <li>Fill in the data (Title, Author, Category, Total Copies are required)</li>
+            <li>Save as Excel (.xlsx) or CSV format</li>
+            <li>Upload the file using the button below</li>
+          </ul>
+        </div>
+        <div class="import-form">
+          <label class="field">
+            <span>Select Excel File</span>
+            <input type="file" accept=".xlsx,.xls,.csv" (change)="onFileSelected($event)">
+            <span class="file-name" *ngIf="importFile">{{ importFile.name }}</span>
+          </label>
+        </div>
+        <div class="actions" style="margin-top: 16px; justify-content: flex-end;">
+          <button class="btn" (click)="importBooks()" [disabled]="!importFile || importLoading">
+            {{ importLoading ? 'Importing...' : 'Import Books' }}
+          </button>
+          <button class="btn secondary" (click)="closeImportModal()">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Import Results -->
+      <div class="import-results" *ngIf="importResult">
+        <div class="results-header">
+          <h4>Import Results</h4>
+          <span class="result-summary">
+            Total: {{ importResult.totalRows }} |
+            <span class="success">Success: {{ importResult.successful }}</span> |
+            <span class="danger">Failed: {{ importResult.failed }}</span>
+          </span>
+        </div>
+        <div class="errors" *ngIf="importResult.errors.length > 0">
+          <h5>Errors:</h5>
+          <ul>
+            <li *ngFor="let err of importResult.errors">{{ err }}</li>
+          </ul>
+        </div>
+        <div class="actions" style="margin-top: 16px; justify-content: flex-end;">
+          <button class="btn secondary" (click)="closeImportModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p-confirmDialog>
+    <ng-template pTemplate="message" let-message>
+      <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+        <p>{{ message.message }}</p>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
+</section>

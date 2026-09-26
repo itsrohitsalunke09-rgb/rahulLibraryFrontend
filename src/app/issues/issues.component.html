@@ -1,0 +1,122 @@
+<section>
+  <header>
+    <div>
+      <h1>Issues & returns</h1>
+    </div>
+  </header>
+  <p-toast position="top-right"></p-toast>
+
+  <!-- Dashboard Stats Cards -->
+  <div class="dashboard-stats" *ngIf="stats">
+    <p-card styleClass="clickable-stat-card" (click)="filterByStatus('')" [style]="{ cursor: 'pointer' }">
+      <ng-template pTemplate="header">
+        <div class="stat-header">
+          <span class="stat-label">All</span>
+        </div>
+      </ng-template>
+      <strong class="stat-value">{{ stats.all }}</strong>
+    </p-card>
+    <p-card styleClass="clickable-stat-card" (click)="filterByStatus('ISSUED')" [style]="{ cursor: 'pointer' }">
+      <ng-template pTemplate="header">
+        <div class="stat-header">
+          <span class="stat-label">Issued</span>
+        </div>
+      </ng-template>
+      <strong class="stat-value">{{ stats.issued }}</strong>
+    </p-card>
+    <p-card styleClass="clickable-stat-card" (click)="filterByStatus('RETURNED')" [style]="{ cursor: 'pointer' }">
+      <ng-template pTemplate="header">
+        <div class="stat-header">
+          <span class="stat-label">Returned</span>
+        </div>
+      </ng-template>
+      <strong class="stat-value">{{ stats.returned }}</strong>
+    </p-card>
+    <p-card styleClass="clickable-stat-card warn-card" (click)="filterByStatus('OVERDUE')" [style]="{ cursor: 'pointer' }">
+      <ng-template pTemplate="header">
+        <div class="stat-header">
+          <span class="stat-label">Overdue</span>
+        </div>
+      </ng-template>
+      <strong class="stat-value">{{ stats.overdue }}</strong>
+    </p-card>
+  </div>
+
+  <p-card styleClass="issues-table-card">
+    <ng-template pTemplate="header">
+      <div class="card-header-content">
+<!--        <div class="card-filters">-->
+<!--          <span class="p-input-icon-left">-->
+<!--            <i class="pi pi-search"></i>-->
+<!--            <input type="text" pInputText [(ngModel)]="query" (input)="onGlobalFilter($event)" placeholder="Search book, student..." class="search-input" style="width: 100%;">-->
+<!--          </span>-->
+          <div class="search-box">
+            <input type="text"
+                   pInputText
+                   [(ngModel)]="query"
+                   (input)="onGlobalFilter($event)"
+                   placeholder="Search book or student "
+                   class="search-input">
+          </div>
+<!--        </div>-->
+      </div>
+    </ng-template>
+    <p-table
+      [value]="issues"
+      [paginator]="true"
+      [rows]="pageSize"
+      [totalRecords]="totalElements"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [lazy]="true"
+      (onLazyLoad)="onPageChange($event)"
+      [sortMode]="'single'"
+      (sort)="onSort($event)"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-sm"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowHover]="true"
+      [loading]="!issues.length && totalElements === 0">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="bookTitle">Book <p-sortIcon field="bookTitle"></p-sortIcon></th>
+          <th pSortableColumn="studentName">Student <p-sortIcon field="studentName"></p-sortIcon></th>
+          <th pSortableColumn="issueDate">Issued <p-sortIcon field="issueDate"></p-sortIcon></th>
+          <th pSortableColumn="dueDate">Due <p-sortIcon field="dueDate"></p-sortIcon></th>
+          <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-issue>
+        <tr>
+          <td [class.marathi]="issue.category === 'Marathi Literature'">{{ issue.bookTitle }}</td>
+          <td [class.marathi]="issue.category === 'Marathi Literature'">{{ issue.studentName }}</td>
+          <td>{{ issue.issueDate }}</td>
+          <td>{{ issue.dueDate }}</td>
+          <td><span class="badge" [ngClass]="badge(issue.status)">{{ issue.status }}</span></td>
+          <td>
+            <div class="action-icons">
+              <i class="pi pi-undo" [style]="{ cursor: 'pointer' }"
+                 *ngIf="issue.status !== 'RETURNED'" (click)="confirm(issue)" pTooltip="Return the book" ></i>
+              <span *ngIf="issue.status === 'RETURNED'">{{ issue.returnDate }}</span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" style="text-align: center;">No issues found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-confirmDialog>
+    <ng-template pTemplate="message" let-message>
+      <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+        <p>{{ message.message }}</p>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
+</section>

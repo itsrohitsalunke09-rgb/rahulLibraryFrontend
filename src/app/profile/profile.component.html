@@ -1,0 +1,114 @@
+<section class="profile-page">
+  <header>
+    <h1>My Profile</h1>
+  </header>
+
+  <p-toast position="top-right"></p-toast>
+
+  <div class="profile-grid" *ngIf="!loading; else loadingTpl">
+    <!-- Profile Card -->
+    <p-card styleClass="profile-main-card">
+      <div class="profile-header">
+        <p-avatar [label]="(user?.fullName?.charAt(0) || 'U')" size="large" shape="circle" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }"></p-avatar>
+        <div class="profile-title">
+          <h2>{{ editing ? editForm.fullName : (userDetails?.fullName || user?.fullName) }}</h2>
+          <span class="role-badge">{{ userDetails?.role || user?.role }}</span>
+        </div>
+      </div>
+      <hr>
+
+      <!-- View Mode -->
+      <div class="profile-fields" *ngIf="!editing">
+        <div class="field-row">
+          <label>Username</label>
+          <span>{{ userDetails?.username || user?.username }}</span>
+        </div>
+        <div class="field-row">
+          <label>Full Name</label>
+          <span>{{ userDetails?.fullName || user?.fullName }}</span>
+        </div>
+        <div class="field-row">
+          <label>Email</label>
+          <span>{{ userDetails?.email || 'Not provided' }}</span>
+        </div>
+        <div class="field-row">
+          <label>Phone</label>
+          <span>{{ userDetails?.phone || 'Not provided' }}</span>
+        </div>
+        <div class="field-row" *ngIf="userDetails?.dateOfBirth">
+          <label>Date of Birth</label>
+          <span>{{ userDetails?.dateOfBirth }}</span>
+        </div>
+        <div class="field-row" *ngIf="userDetails?.address">
+          <label>Address</label>
+          <span>{{ userDetails?.address }}</span>
+        </div>
+        <div class="field-row">
+          <label>Status</label>
+          <span><span class="badge" [class.ok]="userDetails?.active" [class.danger]="!userDetails?.active">{{ userDetails?.active ? 'Active' : 'Inactive' }}</span></span>
+        </div>
+        <div class="field-row">
+          <label>Role</label>
+          <span>{{ userDetails?.role || user?.role }}</span>
+        </div>
+        <div class="edit-actions">
+          <i class="pi pi-pencil " [style]="{cursor:'pointer'}" pTooltip="Edit" (click)="startEdit()"></i>
+          <i class="pi pi-sign-out " [style]="{cursor:'pointer'}" pTooltip="Sign-out" (click)="auth.logout()"></i>
+        </div>
+      </div>
+
+      <!-- Edit Mode -->
+      <form (ngSubmit)="save()" *ngIf="editing">
+        <div class="profile-fields edit-form">
+          <div class="field-row">
+            <label>Username</label>
+            <span class="readonly">{{ userDetails?.username || user?.username }}</span>
+            <small class="text-muted">Username cannot be changed</small>
+          </div>
+          <div class="field-row">
+            <label>Full Name <span class="required">*</span></label>
+            <input type="text" pInputText [(ngModel)]="editForm.fullName" name="fullName" required>
+          </div>
+          <div class="field-row">
+            <label>Email</label>
+            <input type="email" pInputText [(ngModel)]="editForm.email" name="email">
+          </div>
+          <div class="field-row">
+            <label>Phone</label>
+            <input type="text" pInputText [(ngModel)]="editForm.phone" name="phone" 
+                   placeholder="10-digit number (e.g., 9876543210)"
+                   maxlength="10"
+                   (input)="formatPhone($event)">
+          </div>
+          <div class="field-row">
+            <label>Date of Birth</label>
+            <input type="date" pInputText [(ngModel)]="editForm.dateOfBirth" name="dateOfBirth">
+          </div>
+          <div class="field-row">
+            <label>Address</label>
+            <textarea pInputTextarea [(ngModel)]="editForm.address" name="address" rows="3"></textarea>
+          </div>
+          <div class="field-row">
+            <label>New Password <span class="optional">(leave blank to keep current)</span></label>
+            <input type="password" pInputText [(ngModel)]="editForm.password" name="password">
+          </div>
+          <div class="field-row" *ngIf="editForm.password">
+            <label>Confirm Password <span class="required">*</span></label>
+            <input type="password" pInputText [(ngModel)]="editForm.confirmPassword" name="confirmPassword" required>
+          </div>
+          <div class="edit-actions">
+            <i class="pi pi-times " [style]="{cursor:'pointer'}" pTooltip="Cancel Edit" (click)="cancelEdit()"></i>
+            <i class="pi pi-save " [hidden]="loading" [style]="{cursor:'pointer'}" pTooltip="Save Changes" (click)="save()"></i>
+          </div>
+        </div>
+      </form>
+    </p-card>
+  </div>
+
+  <ng-template #loadingTpl>
+    <div class="loading-container">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: var(--primary);"></i>
+      <p>Loading profile...</p>
+    </div>
+  </ng-template>
+</section>

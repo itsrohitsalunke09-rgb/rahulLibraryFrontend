@@ -1,0 +1,21 @@
+<section>
+  <h1>My books</h1>
+  <p>Copies currently with you and your past returns.</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+  <div class="table-wrap card">
+    <table>
+      <thead>
+        <tr><th>Book</th><th>Issued</th><th>Due</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let issue of issues">
+          <td>{{ issue.bookTitle }}</td>
+          <td>{{ issue.issueDate }}</td>
+          <td>{{ issue.dueDate }}</td>
+          <td><span class="badge" [ngClass]="badge(issue.status)">{{ issue.status }}</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="empty" *ngIf="!issues.length">You have no issued books yet. Browse the catalog and ask the librarian to issue a copy.</p>
+  </div>
+</section>

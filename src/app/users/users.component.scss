@@ -1,0 +1,45 @@
+header, .actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+p { color: var(--muted); }
+.form { padding: 1.2rem; margin: 1rem 0; }
+.two { grid-template-columns: 1fr 1fr; }
+.table-wrap { padding: 0.4rem 0.6rem 1rem; }
+
+::ng-deep .users-table-card .p-card-body {
+  padding: 0;
+}
+::ng-deep .users-table-card .p-card-content {
+  padding: 0;
+}
+@media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+
+::ng-deep .users-table-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--surface-border);
+}
+
+::ng-deep .users-table-card .p-datatable {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+::ng-deep .users-table-card .p-datatable-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.action-icons i {
+  cursor: pointer;
+}

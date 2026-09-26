@@ -1,0 +1,81 @@
+<div class="register-container">
+  <div class="register-card">
+    <h2>Student Registration</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" formControlName="fullName" placeholder="Enter full name" />
+        <div class="error" *ngIf="form.get('fullName')?.invalid && form.get('fullName')?.touched">
+          Full name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" formControlName="dateOfBirth" />
+        <div class="error" *ngIf="form.get('dateOfBirth')?.invalid && form.get('dateOfBirth')?.touched">
+          Date of birth is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <textarea formControlName="address" placeholder="Enter address" rows="3"></textarea>
+        <div class="error" *ngIf="form.get('address')?.invalid && form.get('address')?.touched">
+          Address is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Mobile Number</label>
+        <input type="text" formControlName="phone" placeholder="10-digit mobile number" maxlength="10" />
+        <div class="error" *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">
+          <span *ngIf="form.get('phone')?.errors?.['required']">Mobile number is required</span>
+          <span *ngIf="form.get('phone')?.errors?.['pattern']">Enter valid 10-digit number</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Gmail</label>
+        <input type="email" formControlName="email" placeholder="Enter Gmail address" />
+        <div class="error" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+          <span *ngIf="form.get('email')?.errors?.['required']">Email is required</span>
+          <span *ngIf="form.get('email')?.errors?.['email']">Enter valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" formControlName="username" placeholder="Choose username" />
+        <div class="error" *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <div class="password-field">
+          <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Min 6 characters" />
+          <button type="button" class="toggle-password" (click)="toggleShowPassword()" [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+            {{ showPassword ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+        <div class="error" *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+          <span *ngIf="form.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="form.get('password')?.errors?.['minlength']">Minimum 6 characters</span>
+        </div>
+      </div>
+
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <button type="submit" [disabled]="loading" class="btn-primary">
+        {{ loading ? 'Registering...' : 'Register' }}
+      </button>
+    </form>
+
+    <p class="login-link">
+      Already have an account? <a routerLink="/login">Login</a>
+    </p>
+  </div>
+</div>
