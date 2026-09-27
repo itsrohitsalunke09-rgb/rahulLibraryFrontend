@@ -2,34 +2,34 @@
   <div class="panel card">
     <div class="library-brand">
       <img src="favicon.svg" alt="Rahul Library Logo" class="library-logo">
-      <h1>राहुल सार्वजनिक वाचनालय</h1>
+      <h1>राहुल सार्व. वाचनालय</h1>
     </div>
     <form (ngSubmit)="submit()">
       <label class="field">
         <span>Username</span>
-        <input placeholder="Enter Username"
+        <input
+          class="form-control"
+          placeholder="Enter username"
           name="username"
           [(ngModel)]="username"
           autocomplete="username"
-          required>
+          required
+        >
       </label>
+
       <label class="field">
         <span>Password</span>
-        <div class="password-field">
-          <input placeholder="Enter Password"
-            [type]="showPassword ? 'text' : 'password'"
-            name="password"
-            [(ngModel)]="password"
-            autocomplete="current-password"
-            required>
-          <button
-            type="button"
-            class="toggle-password"
-            (click)="toggleShowPassword()"
-            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
-            {{ showPassword ? 'Hide' : 'Show' }}
-          </button>
-        </div>
+
+        <p-password
+          [(ngModel)]="password"
+          name="password"
+          [toggleMask]="true"
+          placeholder="Enter password"
+          autocomplete="current-password"
+          [feedback]="false"
+          styleClass="form-password"
+          required
+        ></p-password>
       </label>
       <p class="error" *ngIf="error">
         {{ error }}

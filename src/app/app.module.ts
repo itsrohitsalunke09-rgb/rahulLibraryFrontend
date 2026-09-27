@@ -28,6 +28,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import {ToastModule} from "primeng/toast";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {AvatarModule} from "primeng/avatar";
+import {PasswordModule} from "primeng/password";
 
 @NgModule({
   declarations: [
@@ -43,25 +44,26 @@ import {AvatarModule} from "primeng/avatar";
     MyBooksComponent,
     ProfileComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AutoCompleteModule,
-        DropdownModule,
-        DialogModule,
-        CardModule,
-        TableModule,
-        PaginatorModule,
-        OverlayPanelModule,
-        TooltipModule,
-        ToastModule,
-        ConfirmDialogModule,
-        AvatarModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AutoCompleteModule,
+    DropdownModule,
+    DialogModule,
+    CardModule,
+    TableModule,
+    PaginatorModule,
+    OverlayPanelModule,
+    TooltipModule,
+    ToastModule,
+    ConfirmDialogModule,
+    AvatarModule,
+    PasswordModule
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],

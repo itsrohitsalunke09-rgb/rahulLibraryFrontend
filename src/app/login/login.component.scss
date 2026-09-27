@@ -26,333 +26,16 @@
   box-sizing: border-box;
 }
 
-/* Heading */
-
-h1 {
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  line-height: 1.2;
-
-  margin: 0.2rem 0 0.8rem;
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-/* Optional text */
-
-.kicker {
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.75rem;
-  color: var(--gold);
-  font-weight: 700;
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-.lede {
-  color: var(--muted);
-  margin-bottom: 1.6rem;
-}
-
-/* Form */
-
-form {
-  display: grid;
-  gap: 0.9rem;
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-.field {
-  display: block;
-  width: 100%;
-}
-
-.field span {
-  display: block;
-  margin-bottom: 0.4rem;
-}
-
-/* Inputs */
-
-input {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Password */
-
-.password-field {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-
-  width: 100%;
-}
-
-.password-field input {
-  flex: 1;
-  min-width: 0;
-  padding-right: 75px;
-}
-
-.toggle-password {
-  position: absolute;
-  right: 8px;
-
-  background: none;
-  border: none;
-
-  color: var(--muted);
-  font-size: 0.8rem;
-
-  cursor: pointer;
-
-  padding: 4px 8px;
-  border-radius: 4px;
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-.toggle-password:hover {
-  background: var(--line);
-  color: var(--text);
-}
-
-/* Button */
-
-.btn {
-  justify-self: center;
-  margin-top: 0.3rem;
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-/* Error */
-
-.error {
-  color: #dc2626;
-  margin: 0;
-}
-
-/* Register */
-
-.register-link {
-  margin-top: 1rem;
-
-  text-align: center;
-
-  color: var(--muted);
-  font-size: 0.9rem;
-
-  line-height: 1.5;
-}
-
-.register-link a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-.register-link a:hover {
-  text-decoration: underline;
-}
-
-/* Demo chips */
-
-.demos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-
-  margin-top: 1.4rem;
-}
-
-.chip {
-  border: 1px solid var(--line);
-  background: #fff;
-
-  border-radius: 999px;
-
-  padding: 0.4rem 0.8rem;
-
-  cursor: pointer;
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-/* Aside */
-
-aside {
-  align-self: center;
-}
-
-aside ul {
-  padding-left: 1.1rem;
-
-  line-height: 1.7;
-
-  color: var(--muted);
-
-  font-family:
-    'Inter',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-}
-
-
 /* =========================================
-   TABLET
+   LIBRARY BRAND
    ========================================= */
-
-@media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-
-    gap: 2rem;
-
-    padding: 3rem 1.5rem;
-  }
-
-  .panel {
-    max-width: 600px;
-  }
-
-  aside {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-}
-
-
-/* =========================================
-   MOBILE
-   ========================================= */
-
-@media (max-width: 600px) {
-  .hero {
-    min-height: 100dvh;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    padding: 1.5rem 1rem;
-  }
-
-  .panel {
-    width: 100%;
-    max-width: 100%;
-
-    padding: 1.5rem;
-
-    margin: 0;
-  }
-
-  h1 {
-    font-size: clamp(1.6rem, 7vw, 2.2rem);
-
-    text-align: center;
-
-    word-break: normal;
-    overflow-wrap: break-word;
-  }
-
-  form {
-    gap: 0.8rem;
-  }
-
-  .btn {
-    width: 140px;
-    justify-self: center;
-  }
-
-  .register-link {
-    font-size: 0.85rem;
-  }
-
-  .toggle-password {
-    right: 5px;
-  }
-}
-
-
-/* =========================================
-   SMALL MOBILE
-   ========================================= */
-
-@media (max-width: 380px) {
-  .hero {
-    padding: 1rem 0.75rem;
-  }
-
-  .panel {
-    padding: 1.2rem;
-  }
-
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  .register-link {
-    font-size: 0.8rem;
-  }
-}
 
 .library-brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
 
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -379,9 +62,341 @@ aside ul {
     Roboto,
     sans-serif;
 }
-@media (max-width: 480px) {
+
+/* =========================================
+   HEADING
+   ========================================= */
+
+h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
+
+  margin: 0.2rem 0 0.8rem;
+
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+/* =========================================
+   OPTIONAL TEXT
+   ========================================= */
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+
+  font-size: 0.75rem;
+  color: var(--gold);
+  font-weight: 700;
+
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+.lede {
+  color: var(--muted);
+  margin-bottom: 1.6rem;
+}
+
+/* =========================================
+   FORM
+   ========================================= */
+
+form {
+  display: grid;
+  gap: 0.9rem;
+
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+.field {
+  display: block;
+  width: 100%;
+}
+
+.field span {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* =========================================
+   COMMON INPUT STYLE
+   ========================================= */
+
+input {
+  width: 100%;
+  height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 0 14px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #1e293b;
+
+  font-size: 0.90rem;
+  font-family: inherit;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input::placeholder {
+  color: #adb8c6;
+  font-size: 0.85rem;
+}
+
+input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* =========================================
+   PRIME NG PASSWORD
+   ========================================= */
+
+:host ::ng-deep .p-password {
+  display: block;
+
+  width: 100%;
+}
+
+:host ::ng-deep .p-password .p-password-input {
+  width: 100%;
+  height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 0 44px 0 14px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #1e293b;
+
+  font-size: 0.90rem;
+  font-family: inherit;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+:host ::ng-deep .p-password .p-password-input::placeholder {
+  color: #adb8c6;
+}
+
+:host ::ng-deep .p-password .p-password-input:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Password eye icon */
+
+:host ::ng-deep .p-password .p-password-toggle-mask {
+  color: #64748b;
+}
+
+:host ::ng-deep .p-password .p-password-toggle-mask:hover {
+  color: #2563eb;
+}
+
+/* =========================================
+   BUTTON
+   ========================================= */
+
+.btn {
+  justify-self: center;
+  margin-top: 0.3rem;
+  background-color:#1a88d2;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+/* =========================================
+   ERROR
+   ========================================= */
+
+.error {
+  color: #dc2626;
+  margin: 0;
+}
+
+/* =========================================
+   REGISTER
+   ========================================= */
+
+.register-link {
+  margin-top: 1rem;
+
+  text-align: center;
+
+  color: var(--muted);
+  font-size: 0.9rem;
+
+  line-height: 1.5;
+}
+
+.register-link a {
+  color: var(--primary);
+  text-decoration: none;
+
+  font-weight: 600;
+
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   DEMO CHIPS
+   ========================================= */
+
+.demos {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 0.5rem;
+
+  margin-top: 1.4rem;
+}
+
+.chip {
+  border: 1px solid var(--line);
+
+  background: #fff;
+
+  border-radius: 999px;
+
+  padding: 0.4rem 0.8rem;
+
+  cursor: pointer;
+
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+/* =========================================
+   ASIDE
+   ========================================= */
+
+aside {
+  align-self: center;
+}
+
+aside ul {
+  padding-left: 1.1rem;
+
+  line-height: 1.7;
+
+  color: var(--muted);
+
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+  .hero {
+    gap: 2rem;
+
+    padding: 3rem 1.5rem;
+  }
+
+  .panel {
+    max-width: 600px;
+  }
+
+  aside {
+    max-width: 600px;
+
+    margin: 0 auto;
+  }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: 1.5rem 1rem;
+  }
+
+  .panel {
+    width: 100%;
+    max-width: 100%;
+
+    padding: 1.5rem;
+
+    margin: 0;
+  }
+
   .library-brand {
     gap: 0.7rem;
+
     justify-content: flex-start;
   }
 
@@ -392,5 +407,64 @@ aside ul {
 
   .library-brand h1 {
     font-size: 1.35rem;
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+
+    text-align: center;
+
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  form {
+    gap: 0.8rem;
+  }
+
+  .btn {
+    width: 140px;
+    background-color:#1a88d2;
+    justify-self: center;
+  }
+
+  .register-link {
+    font-size: 0.85rem;
+  }
+
+  /* Password stays same height as username */
+  :host ::ng-deep .p-password .p-password-input {
+    height: 44px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 1rem 0.75rem;
+  }
+
+  .panel {
+    padding: 1.2rem;
+  }
+
+  .library-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .library-brand h1 {
+    font-size: 1.2rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .register-link {
+    font-size: 0.8rem;
   }
 }
