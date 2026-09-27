@@ -1,41 +1,49 @@
-<!--<section class="hero">-->
+<div class="hero">
   <div class="panel card">
-<!--    <p class="kicker">NGO community library</p>-->
-    <h1>राहुल सार्वजनिक वाचनालय </h1>
+    <div class="library-brand">
+      <img src="favicon.svg" alt="Rahul Library Logo" class="library-logo">
+      <h1>राहुल सार्वजनिक वाचनालय</h1>
+    </div>
     <form (ngSubmit)="submit()">
       <label class="field">
         <span>Username</span>
-        <input name="username" [(ngModel)]="username" autocomplete="username" required>
+        <input placeholder="Enter Username"
+          name="username"
+          [(ngModel)]="username"
+          autocomplete="username"
+          required>
       </label>
       <label class="field">
         <span>Password</span>
         <div class="password-field">
-          <input [type]="showPassword ? 'text' : 'password'" name="password" [(ngModel)]="password" autocomplete="current-password" required>
-          <button type="button" class="toggle-password" (click)="toggleShowPassword()" [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+          <input placeholder="Enter Password"
+            [type]="showPassword ? 'text' : 'password'"
+            name="password"
+            [(ngModel)]="password"
+            autocomplete="current-password"
+            required>
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="toggleShowPassword()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
             {{ showPassword ? 'Hide' : 'Show' }}
           </button>
         </div>
       </label>
-      <p class="error" *ngIf="error">{{ error }}</p>
-      <button class="btn" type="submit" [disabled]="loading">{{ loading ? 'Logging in…' : 'Log in' }}</button>
+      <p class="error" *ngIf="error">
+        {{ error }}
+      </p>
+      <button
+        class="btn"
+        type="submit"
+        [disabled]="loading">
+        {{ loading ? 'Logging in…' : 'Log in' }}
+      </button>
     </form>
-
-    <p class="register-link">
-      Don't have an account? <a routerLink="/register">Register as Student</a>
-    </p>
-
-<!--    <div class="demos">-->
-<!--      <button type="button" class="chip" *ngFor="let demo of demos" (click)="fill(demo)">-->
-<!--        Try as {{ demo.label }}-->
-<!--      </button>-->
-<!--    </div>-->
+<!--    <p class="register-link">-->
+<!--      Don't have an account?-->
+<!--      <a routerLink="/register">Register as Student</a>-->
+<!--    </p>-->
   </div>
-<!--  <aside>-->
-<!--    <h2>How it works</h2>-->
-<!--    <ul>-->
-<!--      <li><strong>Admin</strong> adds librarians and students, watches overdue books.</li>-->
-<!--      <li><strong>Librarian</strong> catalogs titles, issues copies, and marks returns.</li>-->
-<!--      <li><strong>Student</strong> browses the shelf and sees books currently issued.</li>-->
-<!--    </ul>-->
-<!--  </aside>-->
-<!--</section>-->
+</div>
