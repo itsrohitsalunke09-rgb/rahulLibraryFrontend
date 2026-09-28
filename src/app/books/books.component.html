@@ -19,93 +19,116 @@
   <p-card styleClass="catalog-card">
     <ng-template pTemplate="header">
       <div class="card-header-content">
-<!--        <h2>Book Catalog</h2>-->
         <div class="search-box">
-          <input type="text"
-                 pInputText
-                 [(ngModel)]="query"
-                 (input)="onGlobalFilter($event)"
-                 placeholder="Search titles, authors, registration number, publication or category"
-                 class="search-input">
-<!--          <button class="btn secondary" (click)="reload()">-->
-<!--            <i class="pi pi-search"></i>-->
-<!--          </button>-->
-<!--          <i class="pi pi-search" style="font-size: 1.2rem" (click)="reload()" pTooltip="Search"></i>-->
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="query"
+            (input)="onGlobalFilter($event)"
+            placeholder="Search titles, authors, registration number, publication or category"
+            class="search-input"
+          />
         </div>
       </div>
     </ng-template>
 
-<p-table
-          [value]="books"
-          [paginator]="true"
-          [rows]="pageSize"
-          [totalRecords]="totalElements"
-          [rowsPerPageOptions]="[10, 25, 50]"
-          [lazy]="true"
-          (onLazyLoad)="onPaginatorChange($event)"
-          [tableStyle]="{ 'min-width': '50rem' }"
-          styleClass="p-datatable-sm"
-          [showCurrentPageReport]="true"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-          [rowHover]="true">
+    <p-table
+      [value]="books"
+      [paginator]="true"
+      [rows]="pageSize"
+      [totalRecords]="totalElements"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [lazy]="true"
+      (onLazyLoad)="onPaginatorChange($event)"
+      [tableStyle]="{ width: '100%' }"
+      styleClass="p-datatable-sm responsive-books-table"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowHover]="true"
+    >
+
       <ng-template pTemplate="header">
         <tr>
-          <th>Reg. No.</th>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Category</th>
-          <th>Total</th>
-          <th>Available</th>
-          <th *ngIf="canManage"></th>
+          <th class="col-reg">Reg. No.</th>
+          <th class="col-title">Title</th>
+          <th class="col-author">Author</th>
+          <th class="col-category">Category</th>
+          <th class="col-number">Total</th>
+          <th class="col-number">Available</th>
+          <th *ngIf="canManage" class="col-actions"></th>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-book>
         <tr>
-          <td>
-            <div class="muted">{{ book.registrationNumber || book.category }}</div>
+          <td class="col-reg">
+            <div class="muted">
+              {{ book.registrationNumber || book.category }}
+            </div>
           </td>
-          <td>
-            <strong [class.marathi]="book.category === 'Marathi Literature'">{{ book.title }}</strong>
-          </td>
-          <td [class.marathi]="book.category === 'Marathi Literature'">{{ book.author }}</td>
-          <td>{{ book.category }}</td>
-          <td>{{ book.totalCopies }}</td>
-          <td>{{ book.availableCopies }}</td>
-          <td *ngIf="canManage">
 
+          <td class="col-title">
+            <strong [class.marathi]="book.category === 'Marathi Literature'">
+              {{ book.title }}
+            </strong>
+          </td>
+
+          <td
+            class="col-author"
+            [class.marathi]="book.category === 'Marathi Literature'"
+          >
+            {{ book.author }}
+          </td>
+
+          <td class="col-category">
+            {{ book.category }}
+          </td>
+
+          <td class="col-number">
+            {{ book.totalCopies }}
+          </td>
+
+          <td class="col-number">
+            {{ book.availableCopies }}
+          </td>
+
+          <td *ngIf="canManage" class="col-actions">
             <i
               class="pi pi-bookmark action-icon"
               [style.visibility]="book.availableCopies > 0 ? 'visible' : 'hidden'"
               (click)="openIssue(book); $event.stopPropagation()"
-              pTooltip="Issue the book">
-            </i>
-
+              pTooltip="Issue the book"
+            ></i>
 
             <i
               class="pi pi-pencil action-icon"
               (click)="edit(book); $event.stopPropagation()"
-              pTooltip="Edit the book">
-            </i>
+              pTooltip="Edit the book"
+            ></i>
 
             <i
               class="pi pi-trash action-icon"
               [hidden]="!isAdmin"
               (click)="remove(book); $event.stopPropagation()"
-              pTooltip="Delete the book">
-            </i>
-
+              pTooltip="Delete the book"
+            ></i>
           </td>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7" style="text-align: center;">No books found.</td>
+          <td
+            [attr.colspan]="canManage ? 7 : 6"
+            style="text-align: center;"
+          >
+            No books found.
+          </td>
         </tr>
       </ng-template>
+
     </p-table>
   </p-card>
-
-  <p class="empty" *ngIf="!books.length && !query">No books match that search.</p>
 
   <div class="modal-overlay" *ngIf="showReadersDialog" (click)="closeReadersDialog()">
     <div class="modal" (click)="$event.stopPropagation()">
