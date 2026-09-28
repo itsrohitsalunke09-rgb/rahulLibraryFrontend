@@ -11,10 +11,8 @@ export class DashboardComponent implements OnInit {
   stats?: Dashboard;
   error = '';
 
-  // Modal state
-  showModal = false;
   modalTitle = '';
-  modalType: 'books' | 'available' | 'issued' | 'overdue' | 'students' | 'librarians' | null = null;
+  // modalType: 'books' | 'available' | 'issued' | 'overdue' | 'students' | 'librarians' | null = null;
 
   // Table data
   books: Book[] = [];
@@ -33,6 +31,26 @@ export class DashboardComponent implements OnInit {
     this.loadDashboard();
   }
 
+  showModal = false;
+  modalType = '';
+
+  openDetails(type: string, event: Event): void {
+    event.stopPropagation();
+
+    this.modalType = type;
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.modalType = '';
+  }
+
+  onDashboardClick(event: Event): void {
+    if (this.showModal) {
+      this.closeModal();
+    }
+  }
   loadDashboard() {
     this.api.dashboard().subscribe({
       next: stats => this.stats = stats,
@@ -40,22 +58,13 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openDetails(type: 'books' | 'available' | 'issued' | 'overdue' | 'students' | 'librarians') {
-    this.modalType = type;
-    this.currentPage = 0;
-    this.showModal = true;
-    this.loadModalData(type);
-  }
+  // openDetails(type: 'books' | 'available' | 'issued' | 'overdue' | 'students' | 'librarians') {
+  //   this.modalType = type;
+  //   this.currentPage = 0;
+  //   this.showModal = true;
+  //   this.loadModalData(type);
+  // }
 
-  closeModal() {
-    this.showModal = false;
-    this.modalType = null;
-    this.books = [];
-    this.issues = [];
-    this.users = [];
-    this.totalElements = 0;
-    this.totalPages = 0;
-  }
 
   loadModalData(type: string) {
     switch (type) {
@@ -111,7 +120,7 @@ export class DashboardComponent implements OnInit {
   loadIssuedBooks() {
     this.api.issues().subscribe({
       next: (issues:any) => {
-        this.issues = issues.content.filter((i:any) => i.status === 'ISSUED');
+        this.issues = issues.content;
         this.totalElements = this.issues.length;
         this.totalPages = Math.ceil(this.totalElements / this.pageSize);
       },

@@ -1,199 +1,333 @@
-<section>
-  <h1>Library desk</h1>
-  <p class="error" *ngIf="error">{{ error }}</p>
+<section class="dashboard" (click)="onDashboardClick($event)">
+
+  <div class="dashboard-title">
+      <h3>Library desk</h3>
+  </div>
+
+  <p class="error" *ngIf="error">
+    {{ error }}
+  </p>
+
+  <!-- Stats -->
   <div class="stats" *ngIf="stats">
-    <p-card styleClass="clickable-card" (click)="openDetails('books')" [style]="{ cursor: 'pointer' }">
+
+    <p-card
+      styleClass="clickable-card"
+      (click)="openDetails('books', $event)"
+      [style]="{ cursor: 'pointer' }">
+
       <ng-template pTemplate="header">
         <div class="stat-header">
           <span class="stat-label">Total Copies</span>
         </div>
       </ng-template>
-      <strong class="stat-value">{{ stats.totalCopies }}</strong>
+
+      <strong class="stat-value">
+        {{ stats.totalCopies }}
+      </strong>
+
     </p-card>
-    <p-card styleClass="clickable-card" (click)="openDetails('available')" [style]="{ cursor: 'pointer' }">
+
+
+    <p-card
+      styleClass="clickable-card"
+      (click)="openDetails('available', $event)"
+      [style]="{ cursor: 'pointer' }">
+
       <ng-template pTemplate="header">
         <div class="stat-header">
           <span class="stat-label">Available</span>
         </div>
       </ng-template>
-      <strong class="stat-value">{{ stats.availableCopies }}</strong>
+
+      <strong class="stat-value">
+        {{ stats.availableCopies }}
+      </strong>
+
     </p-card>
-    <p-card styleClass="clickable-card" (click)="openDetails('issued')" [style]="{ cursor: 'pointer' }">
+
+
+    <p-card
+      styleClass="clickable-card"
+      (click)="openDetails('issued', $event)"
+      [style]="{ cursor: 'pointer' }">
+
       <ng-template pTemplate="header">
         <div class="stat-header">
           <span class="stat-label">Issued</span>
         </div>
       </ng-template>
-      <strong class="stat-value">{{ stats.issuedCopies }}</strong>
+
+      <strong class="stat-value">
+        {{ stats.issuedCopies }}
+      </strong>
+
     </p-card>
-    <p-card styleClass="clickable-card warn-card" (click)="openDetails('overdue')" [style]="{ cursor: 'pointer' }">
+
+
+    <p-card
+      styleClass="clickable-card warn-card"
+      (click)="openDetails('overdue', $event)"
+      [style]="{ cursor: 'pointer' }">
+
       <ng-template pTemplate="header">
         <div class="stat-header">
           <span class="stat-label">Overdue</span>
         </div>
       </ng-template>
-      <strong class="stat-value">{{ stats.overdueCopies }}</strong>
+
+      <strong class="stat-value">
+        {{ stats.overdueCopies }}
+      </strong>
+
     </p-card>
-    <p-card styleClass="clickable-card" (click)="openDetails('students')" [style]="{ cursor: 'pointer' }">
+
+
+    <p-card
+      styleClass="clickable-card"
+      (click)="openDetails('students', $event)"
+      [style]="{ cursor: 'pointer' }">
+
       <ng-template pTemplate="header">
         <div class="stat-header">
           <span class="stat-label">Students</span>
         </div>
       </ng-template>
-      <strong class="stat-value">{{ stats.students }}</strong>
+
+      <strong class="stat-value">
+        {{ stats.students }}
+      </strong>
+
     </p-card>
-<!--    <p-card styleClass="clickable-card" (click)="openDetails('librarians')" [style]="{ cursor: 'pointer' }">-->
-<!--      <ng-template pTemplate="header">-->
-<!--        <div class="stat-header">-->
-<!--          <span class="stat-label">Librarians</span>-->
-<!--        </div>-->
-<!--      </ng-template>-->
-<!--      <strong class="stat-value">{{ stats.librarians }}</strong>-->
-<!--    </p-card>-->
-  </div>
-<!-- Modal -->
-<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-  <div class="modal" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-<!--      <i class="pi pi-times" (click)="closeModal()"></i>-->
-    </div>
-    <div class="modal-body">
-      <!-- Books Table -->
-      <div *ngIf="modalType === 'books' || modalType === 'available'">
-        <p-card class="table-card">
-          <p-table
-            [value]="books"
-            [paginator]="true"
-            [rows]="pageSize"
-            [totalRecords]="totalElements"
-            [rowsPerPageOptions]="[10, 25, 50]"
-            [lazy]="true"
-            (onLazyLoad)="onPaginatorChange($event)"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            styleClass="p-datatable-sm"
-            [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowHover]="true">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>Reg. No.</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th>Total</th>
-                <th>Available</th>
-                <th><i class="pi pi-times" (click)="closeModal()"></i></th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-book>
-              <tr>
-                <td>
-                  <div class="muted">{{ book.registrationNumber || book.category }}</div>
-                </td>
-                <td>
-                  <strong [class.marathi]="book.category === 'Marathi Literature'">{{ book.title }}</strong>
-                </td>
-                <td [class.marathi]="book.category === 'Marathi Literature'">{{ book.author }}</td>
-                <td>{{ book.category }}</td>
-                <td>{{ book.totalCopies }}</td>
-                <td>{{ book.availableCopies }}</td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="6" style="text-align: center;">No books found.</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </p-card>
-      </div>
 
-      <!-- Issues Table (Issued/Overdue) -->
-      <div *ngIf="modalType === 'issued' || modalType === 'overdue'">
-        <p-card class="table-card">
-          <p-table
-            [value]="issues"
-            [paginator]="true"
-            [rows]="pageSize"
-            [totalRecords]="totalElements"
-            [rowsPerPageOptions]="[10, 25, 50]"
-            [lazy]="true"
-            (onLazyLoad)="onPaginatorChange($event)"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            styleClass="p-datatable-sm"
-            [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowHover]="true">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>Book</th>
-                <th>Student</th>
-                <th>Issued</th>
-                <th>Due</th>
-                <th>Status</th>
-                <th><i class="pi pi-times" (click)="closeModal()"></i></th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-issue>
-              <tr>
-                <td [class.marathi]="issue.category === 'Marathi Literature'">{{ issue.bookTitle }}</td>
-                <td [class.marathi]="issue.category === 'Marathi Literature'">{{ issue.studentName }}</td>
-                <td>{{ issue.issueDate }}</td>
-                <td>{{ issue.dueDate }}</td>
-                <td><span class="badge" [ngClass]="getStatusBadge(issue.status)">{{ issue.status }}</span></td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="5" style="text-align: center;">No issues found.</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </p-card>
-      </div>
-
-      <!-- Users Table (Students/Librarians) -->
-      <div *ngIf="modalType === 'students' || modalType === 'librarians'">
-        <p-card class="table-card">
-          <p-table
-            [value]="users"
-            [paginator]="true"
-            [rows]="pageSize"
-            [totalRecords]="totalElements"
-            [rowsPerPageOptions]="[10, 25, 50]"
-            [lazy]="true"
-            (onLazyLoad)="onPaginatorChange($event)"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            styleClass="p-datatable-sm"
-            [showCurrentPageReport]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowHover]="true">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th><i class="pi pi-times" (click)="closeModal()"></i></th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-user>
-              <tr>
-                <td>{{ user.fullName }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email || '-' }}</td>
-                <td>{{ user.phone || '-' }}</td>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-              <tr>
-                <td colspan="4" style="text-align: center;">No users found.</td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </p-card>
-      </div>
-    </div>
   </div>
-</div>
+
+
+  <!-- ========================= -->
+  <!-- DETAILS TABLE AREA -->
+  <!-- ========================= -->
+
+  <div
+    class="details-table"
+    *ngIf="showModal"
+    (click)="$event.stopPropagation()">
+
+
+    <!-- Books / Available -->
+    <div *ngIf="modalType === 'books' || modalType === 'available'">
+
+      <p-card class="table-card">
+
+        <p-table
+          [value]="books"
+          [paginator]="true"
+          [rows]="pageSize"
+          [totalRecords]="totalElements"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          [lazy]="true"
+          (onLazyLoad)="onPaginatorChange($event)"
+          [tableStyle]="{ 'min-width': '100%' }"
+          styleClass="p-datatable-sm"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowHover]="true">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Reg. No.</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Total</th>
+              <th>Available</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-book>
+            <tr>
+              <td>
+                <div class="muted">
+                  {{ book.registrationNumber || book.category }}
+                </div>
+              </td>
+
+              <td>
+                <strong
+                  [class.marathi]="book.category === 'Marathi Literature'">
+                  {{ book.title }}
+                </strong>
+              </td>
+
+              <td
+                [class.marathi]="book.category === 'Marathi Literature'">
+                {{ book.author }}
+              </td>
+
+              <td>
+                {{ book.category }}
+              </td>
+
+              <td>
+                {{ book.totalCopies }}
+              </td>
+
+              <td>
+                {{ book.availableCopies }}
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="6" style="text-align: center;">
+                No books found.
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+
+      </p-card>
+
+    </div>
+
+
+    <!-- Issued / Overdue -->
+    <div *ngIf="modalType === 'issued' || modalType === 'overdue'">
+
+      <p-card class="table-card">
+
+        <p-table
+          [value]="issues"
+          [paginator]="true"
+          [rows]="pageSize"
+          [totalRecords]="totalElements"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          [lazy]="true"
+          (onLazyLoad)="onPaginatorChange($event)"
+          [tableStyle]="{ 'min-width': '100%' }"
+          styleClass="p-datatable-sm"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowHover]="true">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Book</th>
+              <th>Student</th>
+              <th>Issued</th>
+              <th>Due</th>
+              <th>Status</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-issue>
+            <tr>
+              <td
+                [class.marathi]="issue.category === 'Marathi Literature'">
+                {{ issue.bookTitle }}
+              </td>
+
+              <td
+                [class.marathi]="issue.category === 'Marathi Literature'">
+                {{ issue.studentName }}
+              </td>
+
+              <td>
+                {{ issue.issueDate }}
+              </td>
+
+              <td>
+                {{ issue.dueDate }}
+              </td>
+
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="getStatusBadge(issue.status)">
+                  {{ issue.status }}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5" style="text-align: center;">
+                No issues found.
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+
+      </p-card>
+
+    </div>
+
+
+    <!-- Students / Librarians -->
+    <div *ngIf="modalType === 'students' || modalType === 'librarians'">
+
+      <p-card class="table-card">
+
+        <p-table
+          [value]="users"
+          [paginator]="true"
+          [rows]="pageSize"
+          [totalRecords]="totalElements"
+          [rowsPerPageOptions]="[10, 25, 50]"
+          [lazy]="true"
+          (onLazyLoad)="onPaginatorChange($event)"
+          [tableStyle]="{ 'min-width': '100%' }"
+          styleClass="p-datatable-sm"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+          [rowHover]="true">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-user>
+            <tr>
+              <td>
+                {{ user.fullName }}
+              </td>
+
+              <td>
+                {{ user.username }}
+              </td>
+
+              <td>
+                {{ user.email || '-' }}
+              </td>
+
+              <td>
+                {{ user.phone || '-' }}
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="4" style="text-align: center;">
+                No users found.
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+
+      </p-card>
+
+    </div>
+
+  </div>
+
 </section>

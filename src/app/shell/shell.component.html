@@ -1,29 +1,115 @@
 <div class="layout">
+
   <aside>
 
-    <div class="brand profilecard">राहुल सार्व. वाचनालय </div>
-    <div class="profilecard">
-      <p-avatar
-        icon="pi pi-user"
-        styleClass="mr-2 "
-        size="large"
-        [style]="{ 'background-color': '#ece9fc', color: '#2a1261', cursor: 'pointer' }"
-        shape="circle"
-        (click)="navigateToProfile()"></p-avatar>
+    <!-- Logo + Library Name -->
+    <div class="brand">
+      <img
+        src="favicon.svg"
+        alt="Rahul Library Logo"
+        class="brand-logo"
+      />
+
+      <span class="brand-name-desktop">
+    राहुल सार्व. वाचनालय
+  </span>
+
+      <span class="brand-name-mobile">
+    राहुल सार्वजनिक वाचनालय
+  </span>
     </div>
 
-    <p class="who">{{ user?.fullName }}<br><small>{{ user?.role }}</small></p>
+    <!-- Profile Avatar -->
+    <div class="profile-area">
+      <p-avatar
+        icon="pi pi-user"
+        styleClass="profile-avatar"
+        size="large"
+        [style]="{
+          'background-color': '#ece9fc',
+          'color': '#2a1261',
+          'cursor': 'pointer'
+        }"
+        shape="circle"
+        (click)="navigateToProfile()">
+      </p-avatar>
+    </div>
+
+    <!-- User Information -->
+    <p class="who">
+      {{ user?.fullName }}<br>
+      <small>{{ user?.role }}</small>
+    </p>
+
+    <!-- Navigation -->
     <nav>
-      <a routerLink="/app/dashboard" routerLinkActive="active" *ngIf="can(['ADMIN','LIBRARIAN'])">Dashboard</a>
-      <a routerLink="/app/catalog" routerLinkActive="active">Catalog</a>
-      <a routerLink="/app/issues" routerLinkActive="active" *ngIf="can(['ADMIN','LIBRARIAN'])">Issues & returns</a>
-      <a routerLink="/app/users" routerLinkActive="active" *ngIf="can(['ADMIN'])">People</a>
-      <a routerLink="/app/my-books" routerLinkActive="active" *ngIf="can(['STUDENT'])">My books</a>
-      <a routerLink="/app/profile" routerLinkActive="active">My Profile</a>
+
+      <a
+        routerLink="/app/dashboard"
+        routerLinkActive="active"
+        *ngIf="can(['ADMIN','LIBRARIAN'])"
+      >
+        <i class="pi pi-th-large"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a
+        routerLink="/app/catalog"
+        routerLinkActive="active"
+      >
+        <i class="pi pi-book"></i>
+        <span>Catalog</span>
+      </a>
+
+      <a
+        routerLink="/app/issues"
+        routerLinkActive="active"
+        *ngIf="can(['ADMIN','LIBRARIAN'])"
+      >
+        <i class="pi pi-bookmark-fill"></i>
+        <span>Issues &amp; returns</span>
+      </a>
+
+      <a
+        routerLink="/app/users"
+        routerLinkActive="active"
+        *ngIf="can(['ADMIN'])"
+      >
+        <i class="pi pi-users"></i>
+        <span>People</span>
+      </a>
+
+      <a
+        routerLink="/app/my-books"
+        routerLinkActive="active"
+        *ngIf="can(['STUDENT'])"
+      >
+        <i class="pi pi-book"></i>
+        <span>My books</span>
+      </a>
+
+      <a
+        routerLink="/app/profile"
+        routerLinkActive="active"
+      >
+        <i class="pi pi-user"></i>
+        <span>My Profile</span>
+      </a>
+
     </nav>
-    <button class="btn secondary" (click)="logout()">Sign out</button>
+
+    <!-- Sign Out -->
+    <button
+      class="btn secondary"
+      (click)="logout()"
+    >
+      Sign out
+    </button>
+
   </aside>
+
   <main>
     <router-outlet></router-outlet>
   </main>
+
 </div>

@@ -1,12 +1,120 @@
 .lede { color: var(--muted); max-width: 42rem; }
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
   margin-top: 0.4rem;
   margin-bottom: 1rem;
 }
+.dashboard-title h3 {
+  font-size: 1.6rem;
+}
+@media (max-width: 700px) {
+  main {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .dashboard-title h3 {
+    font-size: 1.5rem;
+  }
+  .stat-value {
+    font-size: 1.3rem !important;
+  }
+  .dashboard {
+    width: 100%;
+    min-height: calc(100vh - 1rem);
+    padding: .5rem 0;
+  }
+  :host ::ng-deep .table-card .p-datatable-thead > tr > th {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.5rem;
+  }
 
+  :host ::ng-deep .table-card .p-datatable-tbody > tr > td {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.5rem;
+  }
+
+  :host ::ng-deep .table-card .p-paginator {
+    font-size: 0.7rem;
+  }
+}
+@media (max-width: 600px) {
+  .stat-value {
+    font-size: 1.2rem !important;
+  }
+  .dashboard-title h3 {
+    font-size: 1.3rem;
+  }
+  .stats {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.35rem;
+  }
+
+  :host ::ng-deep .p-card .p-card-header {
+    padding: 0.5rem 0.2rem 0;
+  }
+
+  :host ::ng-deep .p-card .p-card-body {
+    padding: 0.2rem;
+  }
+
+  .stat-header {
+    margin-bottom: 0.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0;
+    line-height: 1.1;
+  }
+
+  .warn-card {
+    border-left-width: 3px;
+  }
+  :host ::ng-deep .table-card .p-datatable-thead > tr > th {
+    font-size: 0.62rem;
+    padding: 0.4rem 0.35rem;
+  }
+
+  :host ::ng-deep .table-card .p-datatable-tbody > tr > td {
+    font-size: 0.62rem;
+    padding: 0.4rem 0.35rem;
+  }
+
+  :host ::ng-deep .table-card .p-paginator {
+    font-size: 0.62rem;
+  }
+}
+@media (max-width: 400px) {
+  .stats {
+    gap: 0.2rem;
+  }
+  .dashboard-title h3 {
+    font-size: 1.2rem;
+  }
+  :host ::ng-deep .p-card .p-card-header {
+    padding: 0.4rem 0.1rem 0;
+  }
+
+  :host ::ng-deep .p-card .p-card-body {
+    padding: 0.15rem;
+  }
+
+  .stat-label {
+    font-size: 0.48rem;
+  }
+  .stat-value {
+    font-size: 1.1rem !important;
+  }
+
+}
+@media (max-width: 350px) {
+  .stat-value {
+    font-size: 0.9rem !important;
+  }
+}
 /* PrimeNG Card overrides for dashboard stats */
 :host ::ng-deep .p-card {
   border-radius: 12px;
@@ -41,13 +149,21 @@
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stats > p-card {
+  min-width: 0;
+  width: 100%;
 }
 
 .stat-value {
   display: block;
   font-size: 2.5rem;
-  font-weight: 700;
-  font-family: inter, serif;
+  font-weight: 500;
+  font-family: Inter, sans-serif;
   color: var(--ink);
   line-height: 1.2;
 }
@@ -70,6 +186,35 @@
 }
 
 /* PrimeNG Table rounded corners */
+:host ::ng-deep .p-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+/* Details table */
+
+.details-table {
+  width: 100%;
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
+
+.table-card {
+  width: 100%;
+}
+
+/* Keep the table inside the normal dashboard layout */
+
+:host ::ng-deep .table-card .p-card-body {
+  padding: 0;
+}
+
+:host ::ng-deep .table-card .p-card-content {
+  padding: 0;
+}
+
+
+/* PrimeNG Table rounded corners */
+
 :host ::ng-deep .p-table {
   border-radius: 12px;
   overflow: hidden;
@@ -101,16 +246,30 @@
   border-top-right-radius: 12px;
 }
 
-/* Ensure table wrapper doesn't interfere */
+
+/* Table wrapper */
+
 :host ::ng-deep .p-datatable-wrapper {
   border-radius: 12px;
-  overflow: hidden;
+  overflow-x: auto;
 }
 
-/* Paginator styling */
+
+/* Paginator */
+
 :host ::ng-deep .p-paginator {
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+  border-radius: 12px;
+}
+.dashboard {
+  width: 100%;
+  min-height: calc(100vh - 1rem);
+  box-sizing: border-box;
+  padding: 0 0;
+}
+
+/* Make sure the Angular router content can use the full width */
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
 }
