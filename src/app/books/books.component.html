@@ -1,7 +1,7 @@
 <section>
   <header>
-    <div>
-      <h1>Catalog</h1>
+    <div class="dashboard-title">
+      <h3>Catalog</h3>
     </div>
     <div class="header-actions">
 <!--      <i class="pi pi-users" [style]="{ cursor: 'pointer' }"-->
@@ -25,7 +25,7 @@
             pInputText
             [(ngModel)]="query"
             (input)="onGlobalFilter($event)"
-            placeholder="Search titles, authors, registration number, publication or category"
+            placeholder="Search titles, authors, registration number or category"
             class="search-input"
           />
         </div>
