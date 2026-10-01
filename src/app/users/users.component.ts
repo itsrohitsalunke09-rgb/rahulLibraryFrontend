@@ -3,6 +3,7 @@ import { LibraryApiService } from '../library-api.service';
 import { Role, UserAccount, PagedResponse } from '../models';
 import { AuthService } from '../auth.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -15,7 +16,8 @@ export class UsersComponent implements OnInit {
   editing: Partial<UserAccount> & { password?: string } | null = null;
   roles: Role[] = ['ADMIN', 'LIBRARIAN', 'STUDENT'];
   dialogVisible = false;
-  
+  query = '';
+  private searchSubject = new Subject<string>();
   // Pagination
   currentPage = 0;
   pageSize = 10;
@@ -39,23 +41,51 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(() => {
+      this.currentPage = 0;
+      this.reload();
+    });
   }
 
   reload() {
-    this.api.usersPaged(undefined, this.currentPage, this.pageSize).subscribe({
-      next: (response: PagedResponse<UserAccount>) => {
-        this.users = response.content;
-        this.totalElements = response.totalElements;
-        this.totalPages = response.totalPages;
-      },
-      error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not load people.' })
-    });
+    if (this.query.trim()) {
+      this.api.searchStudents(this.query).subscribe({
+        next: (users: UserAccount[]) => {
+          this.users = users.filter(u => u.role === 'STUDENT');
+          this.totalElements = this.users.length;
+          this.totalPages = Math.ceil(this.users.length / this.pageSize);
+        },
+        error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not search students.' })
+      });
+    } else {
+      this.api.usersPaged(undefined, this.currentPage, this.pageSize).subscribe({
+        next: (response: PagedResponse<UserAccount>) => {
+          this.users = response.content;
+          this.totalElements = response.totalElements;
+          this.totalPages = response.totalPages;
+        },
+        error: () => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not load people.' })
+      });
+    }
   }
 
   onPageChange(event: any) {
     this.currentPage = event.first / event.rows;
     this.pageSize = event.rows;
     this.reload();
+  }
+
+  onSearch(event: Event) {
+    this.query = (event.target as HTMLInputElement).value;
+    this.searchSubject.next(this.query);
+  }
+
+  onSearchClear() {
+    this.query = '';
+    this.searchSubject.next('');
   }
 
   startNew() {
@@ -126,5 +156,10 @@ export class UsersComponent implements OnInit {
     if (this.editing) {
       this.editing.phone = value;
     }
+  }
+  onGlobalFilter(event: Event) {
+    // this.query = (event.target as HTMLInputElement).value;
+    // this.currentPage = 0;
+    this.reload();
   }
 }

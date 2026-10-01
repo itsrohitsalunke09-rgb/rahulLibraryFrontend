@@ -1,7 +1,18 @@
 /* =========================================================
    PAGE
    ========================================================= */
-
+header,
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom:12px;
+}
+.dashboard-title h3 {
+  font-size: 1.6rem;
+}
 .issues-page {
   width: 100%;
   max-width: 100%;

@@ -1,6 +1,6 @@
 <section class="profile-page">
   <header>
-    <h1>My Profile</h1>
+    <div class="dashboard-title"><h3>My Profile</h3></div>
   </header>
 
   <p-toast position="top-right"></p-toast>
@@ -75,7 +75,7 @@
           </div>
           <div class="field-row">
             <label>Phone</label>
-            <input type="text" pInputText [(ngModel)]="editForm.phone" name="phone" 
+            <input type="text" pInputText [(ngModel)]="editForm.phone" name="phone"
                    placeholder="10-digit number (e.g., 9876543210)"
                    maxlength="10"
                    (input)="formatPhone($event)">

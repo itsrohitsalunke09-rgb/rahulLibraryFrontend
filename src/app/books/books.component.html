@@ -107,8 +107,8 @@
             ></i>
 
             <i
-              class="pi pi-trash action-icon"
-              [hidden]="!isAdmin"
+              class="pi pi-trash action-icon" *ngIf="isAdmin"
+
               (click)="remove(book); $event.stopPropagation()"
               pTooltip="Delete the book"
             ></i>

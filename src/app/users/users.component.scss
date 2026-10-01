@@ -1,32 +1,64 @@
-/* =========================================
-   PEOPLE PAGE
-========================================= */
-
-header,
-.actions {
+.search-box {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
   align-items: center;
-  flex-wrap: wrap;
-  margin-bottom:12px;
+  width: 100%;
+  padding: 1rem 1.25rem;
+}
+.search-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
-p {
+.search-input:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(47, 106, 74, 0.15);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.25rem;
+  background: var(--surface-ground);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar .search-box {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.toolbar .search-box .p-input-icon-left {
+  width: 100%;
+}
+
+.toolbar .search-input {
+  width: 100%;
+  padding-left: 2.5rem;
+}
+
+.toolbar .search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--muted);
 }
 
-.form {
-  padding: 1.2rem;
-  margin: 1rem 0;
-}
-
-.two {
-  grid-template-columns: 1fr 1fr;
-}
-
-.table-wrap {
-  padding: 0.4rem 0.6rem 1rem;
+.toolbar .p-button-text {
+  margin-left: 0.5rem;
 }
 
 

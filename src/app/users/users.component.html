@@ -1,7 +1,7 @@
 <section>
   <header>
-    <div>
-      <h1>People</h1>
+    <div class="dashboard-title">
+      <h3>People</h3>
     </div>
     <i class="pi pi-plus" [style]="{ cursor: 'pointer' }"
        *ngIf="canManageUsers" (click)="startNew()" pTooltip="Add new account" tooltipPosition="left"></i>
@@ -9,6 +9,29 @@
   <p-toast position="top-right"></p-toast>
 
   <p-card styleClass="users-table-card">
+    <ng-template pTemplate="header">
+      <div class="card-header-content">
+        <div class="toolbar">
+          <div class="search-box" style="flex: 1; min-width: 250px;">
+            <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="query"
+                (input)="onSearch($event)"
+                placeholder="Search student by name, email, username..."
+                class="search-input"
+                style="width: 100%; padding-left: 2.5rem;"
+              >
+            </span>
+            <button *ngIf="query" class="p-button-text p-button-sm" (click)="onSearchClear()" pTooltip="Clear search">
+              <i class="pi pi-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
     <p-table
       [value]="users"
       [paginator]="true"
