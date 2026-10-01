@@ -18,10 +18,10 @@
       [rowsPerPageOptions]="[10, 25, 50]"
       [lazy]="true"
       (onLazyLoad)="onPageChange($event)"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      styleClass="p-datatable-sm"
+      [tableStyle]="{ 'width': '100%' }"
+      styleClass="p-datatable-sm responsive-people-table"
       [showCurrentPageReport]="true"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      currentPageReportTemplate="{first}-{last} of {totalRecords}"
       [rowHover]="true">
       <ng-template pTemplate="header">
         <tr>
@@ -85,7 +85,7 @@
       <label class="field"><span>Full name</span><input [(ngModel)]="editing.fullName"></label>
       <label class="field"><span>Username</span><input [(ngModel)]="editing.username"></label>
       <label class="field"><span>Email</span><input [(ngModel)]="editing.email"></label>
-      <label class="field"><span>Phone</span><input type="text" [(ngModel)]="editing.phone" 
+      <label class="field"><span>Phone</span><input type="text" [(ngModel)]="editing.phone"
                    placeholder="10-digit number (e.g., 9876543210)"
                    maxlength="10"
                    (input)="formatPhone($event)"></label>

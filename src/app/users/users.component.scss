@@ -1,45 +1,357 @@
-header, .actions {
+/* =========================================
+   PEOPLE PAGE
+========================================= */
+
+header,
+.actions {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
 }
-p { color: var(--muted); }
-.form { padding: 1.2rem; margin: 1rem 0; }
-.two { grid-template-columns: 1fr 1fr; }
-.table-wrap { padding: 0.4rem 0.6rem 1rem; }
 
-::ng-deep .users-table-card .p-card-body {
-  padding: 0;
+p {
+  color: var(--muted);
 }
-::ng-deep .users-table-card .p-card-content {
-  padding: 0;
-}
-@media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
 
-::ng-deep .users-table-card {
+.form {
+  padding: 1.2rem;
+  margin: 1rem 0;
+}
+
+.two {
+  grid-template-columns: 1fr 1fr;
+}
+
+.table-wrap {
+  padding: 0.4rem 0.6rem 1rem;
+}
+
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+section > header h1 {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+
+/* =========================================
+   USERS CARD
+========================================= */
+
+:host ::ng-deep .users-table-card {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--surface-border);
 }
 
-::ng-deep .users-table-card .p-datatable {
+:host ::ng-deep .users-table-card .p-card-body {
+  padding: 0;
+}
+
+:host ::ng-deep .users-table-card .p-card-content {
+  padding: 0;
+}
+
+:host ::ng-deep .users-table-card .p-datatable {
+  width: 100%;
   border-radius: 16px;
   overflow: hidden;
 }
 
-::ng-deep .users-table-card .p-datatable-wrapper {
+:host ::ng-deep .users-table-card .p-datatable-wrapper {
+  width: 100%;
   border-radius: 16px;
-  overflow: hidden;
+  overflow-x: hidden !important;
 }
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+:host ::ng-deep .responsive-people-table {
+  width: 100%;
+}
+
+:host ::ng-deep .responsive-people-table table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+:host ::ng-deep .responsive-people-table th,
+:host ::ng-deep .responsive-people-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   ACTION ICONS
+========================================= */
 
 .action-icons {
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: center;
 }
+
 .action-icons i {
   cursor: pointer;
 }
+
+
+/* =========================================
+   TABLE COLUMN WIDTHS
+========================================= */
+
+:host ::ng-deep .responsive-people-table th:nth-child(1),
+:host ::ng-deep .responsive-people-table td:nth-child(1) {
+  width: 18%;
+}
+
+:host ::ng-deep .responsive-people-table th:nth-child(2),
+:host ::ng-deep .responsive-people-table td:nth-child(2) {
+  width: 16%;
+}
+
+:host ::ng-deep .responsive-people-table th:nth-child(3),
+:host ::ng-deep .responsive-people-table td:nth-child(3) {
+  width: 19%;
+}
+
+:host ::ng-deep .responsive-people-table th:nth-child(4),
+:host ::ng-deep .responsive-people-table td:nth-child(4) {
+  width: 15%;
+}
+
+:host ::ng-deep .responsive-people-table th:nth-child(5),
+:host ::ng-deep .responsive-people-table td:nth-child(5) {
+  width: 12%;
+}
+
+:host ::ng-deep .responsive-people-table th:nth-child(6),
+:host ::ng-deep .responsive-people-table td:nth-child(6) {
+  width: 12%;
+}
+
+:host ::ng-deep .responsive-people-table th:nth-child(7),
+:host ::ng-deep .responsive-people-table td:nth-child(7) {
+  width: 8%;
+  text-align: center;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  :host ::ng-deep .responsive-people-table .p-paginator-rpp-options {
+    display: none !important;
+  }
+
+  :host ::ng-deep .responsive-people-table .p-paginator .p-select {
+    display: none !important;
+  }
+
+
+  /* =========================================
+     REMOVE PAgINATOR BORDER
+  ========================================= */
+
+  :host ::ng-deep .responsive-people-table .p-paginator-bottom {
+    border-width: 0 !important;
+  }
+  /* Title */
+  section > header h1 {
+    font-size: 1.55rem !important;
+  }
+
+  /* Table cells */
+  :host ::ng-deep .responsive-people-table th,
+  :host ::ng-deep .responsive-people-table td {
+    padding: 0.45rem 0.3rem !important;
+    font-size: 0.72rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Column widths */
+  :host ::ng-deep .responsive-people-table th:nth-child(1),
+  :host ::ng-deep .responsive-people-table td:nth-child(1) {
+    width: 18%;
+  }
+
+  :host ::ng-deep .responsive-people-table th:nth-child(2),
+  :host ::ng-deep .responsive-people-table td:nth-child(2) {
+    width: 16%;
+  }
+
+  :host ::ng-deep .responsive-people-table th:nth-child(3),
+  :host ::ng-deep .responsive-people-table td:nth-child(3) {
+    width: 20%;
+  }
+
+  :host ::ng-deep .responsive-people-table th:nth-child(4),
+  :host ::ng-deep .responsive-people-table td:nth-child(4) {
+    width: 14%;
+  }
+
+  :host ::ng-deep .responsive-people-table th:nth-child(5),
+  :host ::ng-deep .responsive-people-table td:nth-child(5) {
+    width: 11%;
+  }
+
+  :host ::ng-deep .responsive-people-table th:nth-child(6),
+  :host ::ng-deep .responsive-people-table td:nth-child(6) {
+    width: 12%;
+  }
+
+  :host ::ng-deep .responsive-people-table th:nth-child(7),
+  :host ::ng-deep .responsive-people-table td:nth-child(7) {
+    width: 9%;
+  }
+
+  /* Action icons */
+  .action-icons {
+    gap: 5px;
+  }
+
+  .action-icons i {
+    font-size: 0.75rem;
+  }
+
+  /* Paginator */
+  :host ::ng-deep .responsive-people-table .p-paginator {
+    padding: 0.35rem !important;
+    gap: 0.2rem;
+  }
+
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-page,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-prev,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-next,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-first,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-last {
+    min-width: 28px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.7rem !important;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  :host ::ng-deep .responsive-people-table .p-paginator-rpp-options {
+    display: none !important;
+  }
+
+  :host ::ng-deep .responsive-people-table .p-paginator .p-select {
+    display: none !important;
+  }
+
+
+  /* =========================================
+     REMOVE PAgINATOR BORDER
+  ========================================= */
+
+  :host ::ng-deep .responsive-people-table .p-paginator-bottom {
+    border-width: 0 !important;
+  }
+  /* Title */
+  section > header h1 {
+    font-size: 1.2rem !important;
+  }
+
+  /* Table */
+  :host ::ng-deep .responsive-people-table th,
+  :host ::ng-deep .responsive-people-table td {
+    padding: 0.35rem 0.2rem !important;
+    font-size: 0.62rem !important;
+  }
+
+  /* Make action icons smaller */
+  .action-icons {
+    gap: 4px;
+  }
+
+  .action-icons i {
+    font-size: 0.68rem;
+  }
+
+  /* Smaller paginator */
+  :host ::ng-deep .responsive-people-table .p-paginator {
+    padding: 0.25rem !important;
+  }
+
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-page,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-prev,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-next,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-first,
+  :host ::ng-deep .responsive-people-table .p-paginator .p-paginator-last {
+    min-width: 24px !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 0.6rem !important;
+  }
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+  :host ::ng-deep .responsive-people-table .p-paginator-rpp-options {
+    display: none !important;
+  }
+
+  :host ::ng-deep .responsive-people-table .p-paginator .p-select {
+    display: none !important;
+  }
+
+
+  /* =========================================
+     REMOVE PAgINATOR BORDER
+  ========================================= */
+
+  :host ::ng-deep .responsive-people-table .p-paginator-bottom {
+    border-width: 0 !important;
+  }
+  section > header h1 {
+    font-size: 1.05rem !important;
+  }
+
+  :host ::ng-deep .responsive-people-table th,
+  :host ::ng-deep .responsive-people-table td {
+    padding: 0.28rem 0.15rem !important;
+    font-size: 0.56rem !important;
+  }
+
+  .action-icons {
+    gap: 3px;
+  }
+
+  .action-icons i {
+    font-size: 0.62rem;
+  }
+}
+
+
+/* =========================================
+   HIDE ROWS-PER-PAGE DROPDOWN
+========================================= */
+
+

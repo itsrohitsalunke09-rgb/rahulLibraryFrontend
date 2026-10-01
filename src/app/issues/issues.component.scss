@@ -1,3 +1,30 @@
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.issues-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.page-header {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
 p {
   color: var(--muted);
 }
@@ -9,43 +36,97 @@ p {
   flex-wrap: wrap;
 }
 
-.search-input {
-  padding-left: 2.5rem;
-}
-
 .status-dropdown {
   min-width: 180px;
 }
 
-::ng-deep .issues-table-card {
+
+/* =========================================================
+   ISSUES CARD
+   ========================================================= */
+
+:host ::ng-deep .issues-table-card {
+  width: 100%;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--surface-border);
+  overflow: hidden;
 }
 
-::ng-deep .issues-table-card .p-card-body {
+:host ::ng-deep .issues-table-card .p-card-body {
   padding: 0;
 }
 
-::ng-deep .issues-table-card .p-card-content {
+:host ::ng-deep .issues-table-card .p-card-content {
   padding: 1rem;
 }
 
-/* Dashboard Stats - Match dashboard screen design */
+:host ::ng-deep .issues-table-card .p-card-header {
+  padding: 0;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.card-header-content {
+  width: 100%;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.25rem;
+}
+
+.search-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(47, 106, 74, 0.15);
+}
+
+
+/* =========================================================
+   DASHBOARD STATS
+   ========================================================= */
+
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
+  width: 100%;
   margin-top: 0.4rem;
   margin-bottom: 1rem;
 }
 
-/* Card overrides */
+
+/* =========================================================
+   STAT CARD
+   ========================================================= */
+
 :host ::ng-deep .clickable-stat-card {
+  min-width: 0;
+  width: 100%;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--line);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   cursor: pointer;
 }
 
@@ -59,7 +140,7 @@ p {
 }
 
 :host ::ng-deep .clickable-stat-card .p-card-header {
-  padding: 0.75rem 1.5rem 0;
+  padding: 0.75rem 0.5rem 0;
   border: none;
   background: transparent;
 }
@@ -67,7 +148,7 @@ p {
 .stat-header {
   display: flex;
   justify-content: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .stat-label {
@@ -75,21 +156,22 @@ p {
   font-weight: 600;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .stat-value {
   display: block;
   font-size: 2.5rem;
   font-weight: 700;
-  font-family: inter, serif;
+  font-family: Inter, serif;
   color: var(--ink);
   line-height: 1.2;
 }
 
 .clickable-stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .warn-card {
@@ -100,91 +182,277 @@ p {
   color: #e3b57a;
 }
 
-/* Responsive grid */
-@media (max-width: 768px) {
-  .dashboard-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* =========================================================
+   TABLE
+   ========================================================= */
+:host ::ng-deep .responsive-issues-table {
+  width: 100%;
 }
 
-@media (max-width: 480px) {
-  .dashboard-stats {
-    grid-template-columns: 1fr;
-  }
+/* Keep table inside the card */
+:host ::ng-deep .responsive-issues-table .p-datatable-wrapper {
+  width: 100%;
+  overflow-x: hidden !important;
 }
 
-/* PrimeNG Table rounded corners */
+/* Normal table */
+:host ::ng-deep .responsive-issues-table table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+:host ::ng-deep .responsive-issues-table
+.p-datatable-thead > tr > th,
+
+:host ::ng-deep .responsive-issues-table
+.p-datatable-tbody > tr > td {
+  padding: 0.65rem 0.75rem;
+  vertical-align: middle;
+}
+
+/* =========================================================
+   TABLE COLUMNS
+   ========================================================= */
+
+.col-book {
+  width: 25%;
+}
+
+.col-student {
+  width: 20%;
+}
+
+.col-date {
+  width: 14%;
+  white-space: nowrap;
+}
+
+.col-status {
+  width: 13%;
+  text-align: center;
+}
+
+.col-action {
+  width: 90px;
+  min-width: 80px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+/* Long text */
+
+.col-book,
+.col-student {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   SORT ICON
+   ========================================================= */
+
+:host ::ng-deep .responsive-issues-table
+.p-sortable-column
+.p-sortable-column-icon {
+  font-size: 0.8rem;
+  margin-left: 0.2rem;
+}
+
+/* =========================================================
+   STATUS BADGE
+   ========================================================= */
+
+.badge {
+  white-space: nowrap;
+}
+
+/* =========================================================
+   ACTION
+   ========================================================= */
+
+.action-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.action-icons i {
+  cursor: pointer;
+}
+
+.return-date {
+  white-space: nowrap;
+}
+
+/* =========================================================
+   EMPTY MESSAGE
+   ========================================================= */
+
+.empty-message {
+  text-align: center;
+}
+
+/* =========================================================
+   TABLE ROUNDED CORNERS
+   ========================================================= */
+
 :host ::ng-deep .issues-table-card .p-table {
   border-radius: 12px;
   overflow: hidden;
 }
 
-:host ::ng-deep .issues-table-card .p-table .p-datatable-header,
-:host ::ng-deep .issues-table-card .p-table .p-datatable-thead > tr > th {
+:host ::ng-deep .issues-table-card
+.p-datatable-thead > tr > th:first-child {
   border-top-left-radius: 0;
+}
+
+:host ::ng-deep .issues-table-card
+.p-datatable-thead > tr > th:last-child {
   border-top-right-radius: 0;
 }
 
-:host ::ng-deep .issues-table-card .p-table .p-datatable-tbody > tr:last-child > td {
+:host ::ng-deep .issues-table-card
+.p-datatable-tbody > tr:last-child > td {
   border-bottom: none;
 }
 
-:host ::ng-deep .issues-table-card .p-table .p-datatable-tbody > tr:last-child > td:first-child {
-  border-bottom-left-radius: 0px;
-}
-
-:host ::ng-deep .issues-table-card .p-table .p-datatable-tbody > tr:last-child > td:last-child {
-  border-bottom-right-radius: 0px;
-}
-
-:host ::ng-deep .issues-table-card .p-table .p-datatable-thead > tr > th:first-child {
-  border-top-left-radius: 0px;
-}
-
-:host ::ng-deep .issues-table-card .p-table .p-datatable-thead > tr > th:last-child {
-  border-top-right-radius: 0px;
-}
-
-:host ::ng-deep .issues-table-card .p-datatable-wrapper {
-  border-radius: 0px;
+:host ::ng-deep .issues-table-card
+.p-datatable-wrapper {
+  border-radius: 0;
   overflow: hidden;
 }
 
-:host ::ng-deep .issues-table-card .p-paginator {
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+/* =========================================================
+   PAGINATOR - DESKTOP
+   ========================================================= */
+
+section > header h1 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  margin: 0;
+}
+:host ::ng-deep .responsive-issues-table
+.p-paginator {
+  border-width: 0;
 }
 
-.search-box {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  width: 100%;
-  padding: 1rem 1.25rem 1rem 1.25rem;
-}
-.search-input {
-  flex: 1;
-  min-width: 200px;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  font-size: 0.9rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+@media (max-width: 768px) {
+  section > header h1 {
+    font-size: 1.3rem !important;
+  }
+  :host ::ng-deep .responsive-issues-table .p-paginator-rpp-options {
+    display: none !important;
+  }
+
+  :host ::ng-deep .responsive-issues-table .p-paginator .p-select {
+    display: none !important;
+  }
+  :host ::ng-deep .responsive-issues-table th,
+  :host ::ng-deep .responsive-issues-table td {
+    padding: 0.45rem 0.3rem !important;
+    font-size: 0.72rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Column widths */
+  :host ::ng-deep .responsive-issues-table th:nth-child(1),
+  :host ::ng-deep .responsive-issues-table td:nth-child(1) {
+    width: 25%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(2),
+  :host ::ng-deep .responsive-issues-table td:nth-child(2) {
+    width: 22%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(3),
+  :host ::ng-deep .responsive-issues-table td:nth-child(3) {
+    width: 14%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(4),
+  :host ::ng-deep .responsive-issues-table td:nth-child(4) {
+    width: 14%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(5),
+  :host ::ng-deep .responsive-issues-table td:nth-child(5) {
+    width: 13%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(6),
+  :host ::ng-deep .responsive-issues-table td:nth-child(6) {
+    width: 12%;
+    text-align: center;
+  }
+
+  /* Smaller sort/icon spacing if any remain */
+  :host ::ng-deep .responsive-issues-table .p-sortable-column-icon {
+    font-size: 0.6rem;
+    margin-left: 0.1rem;
+  }
 }
 
-.search-input:focus {
-  outline: none;
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(47, 106, 74, 0.15);
+/* ================================
+   VERY SMALL MOBILE
+================================ */
+
+@media (max-width: 480px) {
+  section > header h1 {
+    font-size: 1rem !important;
+  }
+  :host ::ng-deep .responsive-issues-table .p-paginator-rpp-options {
+    display: none !important;
+  }
+
+  :host ::ng-deep .responsive-issues-table .p-paginator .p-select {
+    display: none !important;
+  }
+  :host ::ng-deep .responsive-issues-table th,
+  :host ::ng-deep .responsive-issues-table td {
+    padding: 0.35rem 0.2rem !important;
+    font-size: 0.62rem !important;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(1),
+  :host ::ng-deep .responsive-issues-table td:nth-child(1) {
+    width: 24%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(2),
+  :host ::ng-deep .responsive-issues-table td:nth-child(2) {
+    width: 21%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(3),
+  :host ::ng-deep .responsive-issues-table td:nth-child(3) {
+    width: 15%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(4),
+  :host ::ng-deep .responsive-issues-table td:nth-child(4) {
+    width: 15%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(5),
+  :host ::ng-deep .responsive-issues-table td:nth-child(5) {
+    width: 13%;
+  }
+
+  :host ::ng-deep .responsive-issues-table th:nth-child(6),
+  :host ::ng-deep .responsive-issues-table td:nth-child(6) {
+    width: 12%;
+  }
 }
 
-:host ::ng-deep .catalog-card .p-card-header {
-  //background: var(--paper);
-  //border-bottom: 1px solid var(--line);
-  padding: 1rem 1.25rem 0rem 1.25rem;
-}
-:host ::ng-deep .p-datatable .p-paginator-bottom {
-  border-width: 0 0 0 0 !important;
-}
+/* ================================
+   HIDE ROWS-PER-PAGE DROPDOWN
+================================ */
+
+

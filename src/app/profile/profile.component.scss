@@ -1,41 +1,87 @@
+/* =========================================
+   PROFILE PAGE
+========================================= */
+
 .profile-page {
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .profile-grid {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
+  max-width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 }
 
-::ng-deep .profile-main-card {
-  border-radius:12px;
-  width: 90vw !important;
-  max-width: 1200px !important;
+
+/* =========================================
+   PAGE TITLE
+========================================= */
+
+.profile-page > header h1 {
+  margin: 0 0 1rem;
+  font-size: 2rem;
+  line-height: 1.2;
 }
 
-::ng-deep .p-card .p-card-content {
-  padding: 0rem 0 !important;
+
+/* =========================================
+   PROFILE GRID
+========================================= */
+
+
+
+
+/* =========================================
+   PROFILE CARD - SIDEBAR SAFE
+========================================= */
+
+:host ::ng-deep .profile-main-card {
+  width: 100% !important;
+  max-width: 1200px !important;
+  border-radius: 12px;
+  box-sizing: border-box;
 }
+
+:host ::ng-deep .profile-main-card .p-card-body {
+  padding: 1.25rem;
+}
+
+:host ::ng-deep .profile-main-card .p-card-content {
+  padding: 0 !important;
+}
+
+
+/* =========================================
+   PROFILE HEADER
+========================================= */
 
 .profile-header {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  min-width: 0;
+}
+
+.profile-title {
+  min-width: 0;
 }
 
 .profile-title h2 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .role-badge {
   display: inline-block;
+  margin-top: 0.3rem;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.75rem;
@@ -45,17 +91,34 @@
   color: #2a1261;
 }
 
+
+/* =========================================
+   PROFILE FIELDS
+========================================= */
+
 .profile-fields {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .field-row {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  width:50%;
+  width: 50%;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+.field-row input,
+.field-row textarea,
+.field-row .p-inputtext {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .field-row label {
@@ -66,14 +129,72 @@
   letter-spacing: 0.05em;
 }
 
-.field-row span {
+.field-row > span {
   font-size: 1rem;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+
+/* =========================================
+   FORM INPUTS
+========================================= */
+
+
+
+.field-row textarea {
+  resize: vertical;
+}
+
+.readonly {
+  display: block;
   color: var(--ink);
 }
 
+.text-muted {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.required {
+  color: #d9534f;
+}
+
+.optional {
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+
+/* =========================================
+   EDIT ACTIONS
+========================================= */
+
+.edit-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding-top: 0.5rem;
+}
+
+.edit-actions i {
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+
+/* =========================================
+   OTHER / LOADING
+========================================= */
+
 .profile-actions-card {
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   height: fit-content;
 }
 
@@ -99,14 +220,238 @@
   color: var(--muted);
 }
 
-.edit-actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  width: 50%;
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+  .field-row {
+    width: 100%;
+    max-width: 100%;
+  }
+  .profile-page > header h1 {
+    font-size: 1.55rem;
+  }
+
+  :host ::ng-deep .profile-main-card .p-card-body {
+    padding: 1rem;
+  }
+
+  .profile-title h2 {
+    font-size: 1.3rem;
+  }
+
+  .profile-page > header h1 {
+    font-size: 1.55rem;
+  }
+
+  .profile-grid {
+    width: 100%;
+  }
+
+  :host ::ng-deep .profile-main-card {
+    width: 95vw !important;
+    max-width: 95vw !important;
+  }
+
+  :host ::ng-deep .profile-main-card .p-card-body {
+    padding: 1rem;
+  }
+
+  .profile-header {
+    gap: 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .profile-title h2 {
+    font-size: 1.3rem;
+  }
+
+  .role-badge {
+    font-size: 0.68rem;
+    padding: 0.22rem 0.6rem;
+  }
+
+  .profile-fields {
+    gap: 0.8rem;
+  }
+
+  .field-row label {
+    font-size: 0.68rem;
+  }
+
+  .field-row > span {
+    font-size: 0.9rem;
+  }
+
+  .edit-actions {
+    gap: 18px;
+  }
 }
 
-.edit-actions i {
-  cursor: pointer;
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .profile-page > header h1 {
+    font-size: 1.2rem;
+  }
+
+  :host ::ng-deep .profile-main-card {
+    border-radius: 10px;
+  }
+
+  :host ::ng-deep .profile-main-card .p-card-body {
+    padding: 0.75rem;
+  }
+
+  .profile-title h2 {
+    font-size: 1.05rem;
+  }
+  .profile-page > header h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .profile-grid {
+    width: 100%;
+  }
+
+  :host ::ng-deep .profile-main-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 10px;
+  }
+
+  :host ::ng-deep .profile-main-card .p-card-body {
+    padding: 0.75rem;
+  }
+
+  .profile-header {
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .profile-title {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .profile-title h2 {
+    font-size: 1.05rem;
+  }
+
+  .role-badge {
+    font-size: 0.6rem;
+    padding: 0.18rem 0.5rem;
+  }
+
+  .profile-fields {
+    gap: 0.7rem;
+  }
+
+  .field-row {
+    gap: 0.2rem;
+  }
+
+  .field-row label {
+    font-size: 0.62rem;
+  }
+
+  .field-row > span {
+    font-size: 0.82rem;
+  }
+
+  .field-row input,
+  .field-row textarea,
+  .field-row .p-inputtext {
+    font-size: 0.82rem;
+    padding: 0.55rem 0.65rem;
+  }
+
+  .text-muted {
+    font-size: 0.65rem;
+  }
+
+  .optional {
+    font-size: 0.6rem;
+  }
+
+  .edit-actions {
+    gap: 16px;
+    padding-top: 0.25rem;
+  }
+
+  .edit-actions i {
+    font-size: 1rem;
+  }
+
+  .loading-container {
+    padding: 2rem 1rem;
+  }
+}
+
+
+/* =========================================
+   VERY SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+  .profile-page > header h1 {
+    font-size: 1.05rem;
+  }
+
+  :host ::ng-deep .profile-main-card .p-card-body {
+    padding: 0.6rem;
+  }
+
+  .profile-title h2 {
+    font-size: 0.95rem;
+  }
+  .profile-page > header h1 {
+    font-size: 1.05rem;
+  }
+
+  :host ::ng-deep .profile-main-card .p-card-body {
+    padding: 0.6rem;
+  }
+
+  .profile-header {
+    gap: 0.5rem;
+  }
+
+  .profile-title h2 {
+    font-size: 0.95rem;
+  }
+
+  .role-badge {
+    font-size: 0.55rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .field-row label {
+    font-size: 0.58rem;
+  }
+
+  .field-row > span {
+    font-size: 0.75rem;
+  }
+
+  .field-row input,
+  .field-row textarea,
+  .field-row .p-inputtext {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.55rem;
+  }
+
+  .edit-actions {
+    gap: 14px;
+  }
+
+  .edit-actions i {
+    font-size: 0.9rem;
+  }
 }
