@@ -3,9 +3,8 @@
     <div>
       <h1>People</h1>
     </div>
-<!--    <button class="btn" (click)="startNew()">Add person</button>-->
     <i class="pi pi-plus" [style]="{ cursor: 'pointer' }"
-       (click)="startNew()" pTooltip="Add new account" tooltipPosition="left"></i>
+       *ngIf="canManageUsers" (click)="startNew()" pTooltip="Add new account" tooltipPosition="left"></i>
   </header>
   <p-toast position="top-right"></p-toast>
 
@@ -47,6 +46,7 @@
               <i
                 tooltipPosition="left"
                 class="pi pi-pencil"
+                *ngIf="canManageUsers"
                 (click)="edit(user)"
                 pTooltip="Edit account">
               </i>
@@ -94,7 +94,7 @@
       <label class="field">
         <span>Role</span>
         <select [(ngModel)]="editing.role">
-          <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+          <option *ngFor="let role of availableRoles" [ngValue]="role">{{ role }}</option>
         </select>
       </label>
       <label class="field"><span>Password {{ editing.id ? '(leave blank to keep)' : '' }}</span><input type="password" [(ngModel)]="editing.password"></label>

@@ -24,8 +24,18 @@ export class UsersComponent implements OnInit {
 
   constructor(private api: LibraryApiService, private auth: AuthService, private messageService: MessageService, private confirmationService: ConfirmationService) {}
 
+  get canManageUsers() {
+    const role = this.auth.role();
+    return role === 'ADMIN' || role === 'LIBRARIAN';
+  }
+
   get isAdmin() {
     return this.auth.role() === 'ADMIN';
+  }
+
+  get availableRoles(): Role[] {
+    const role = this.auth.role();
+    return role === 'ADMIN' ? ['ADMIN', 'LIBRARIAN', 'STUDENT'] : ['LIBRARIAN', 'STUDENT'];
   }
 
   ngOnInit() {

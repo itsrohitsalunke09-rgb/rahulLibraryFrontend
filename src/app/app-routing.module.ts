@@ -24,7 +24,7 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent, canActivate: [RoleGuard], data: { roles: ['ADMIN', 'LIBRARIAN'] } },
       { path: 'catalog', component: BooksComponent },
       { path: 'issues', component: IssuesComponent, canActivate: [RoleGuard], data: { roles: ['ADMIN', 'LIBRARIAN'] } },
-      { path: 'users', component: UsersComponent, canActivate: [RoleGuard], data: { roles: ['ADMIN'] } },
+      { path: 'users', component: UsersComponent, canActivate: [RoleGuard], data: { roles: ['ADMIN', 'LIBRARIAN'] } },
       { path: 'my-books', component: MyBooksComponent, canActivate: [RoleGuard], data: { roles: ['STUDENT'] } },
       { path: 'profile', component: ProfileComponent }
     ]
