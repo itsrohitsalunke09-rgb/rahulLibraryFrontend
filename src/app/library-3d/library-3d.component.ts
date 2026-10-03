@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import {  AfterViewInit,  Component,  ElementRef,  OnDestroy,  ViewChild} from '@angular/core';
+import { Router } from '@angular/router';
+import { PageFlip } from 'page-flip';
 @Component({
   selector: 'app-library-3d',
   standalone: true,
@@ -8,51 +9,127 @@ import { CommonModule } from '@angular/common';
   templateUrl: './library-3d.component.html',
   styleUrls: ['./library-3d.component.scss']
 })
-export class Library3DComponent implements OnInit, OnDestroy {
-  features = [
-    {
-      icon: 'pi pi-book',
-      title: 'Vast Collection',
-      description: 'Over 10,000 books across various genres including literature, science, history, and more.'
-    },
-    {
-      icon: 'pi pi-clock',
-      title: 'Extended Hours',
-      description: 'Open 12 hours a day, 6 days a week for your convenience.'
-    },
-    {
-      icon: 'pi pi-wifi',
-      title: 'Digital Access',
-      description: 'Access e-books and digital resources from anywhere with your membership.'
-    },
-    {
-      icon: 'pi pi-users',
-      title: 'Community Events',
-      description: 'Regular book clubs, author talks, and reading workshops for all ages.'
-    },
-    {
-      icon: 'pi pi-search',
-      title: 'Smart Search',
-      description: 'Find any book instantly with our advanced catalog search system.'
-    },
-    {
-      icon: 'pi pi-heart',
-      title: 'Reading Spaces',
-      description: 'Comfortable reading areas with natural light and quiet zones.'
-    }
+export class Library3DComponent implements  OnDestroy {
+  @ViewChild('bookContainer', { static: true })
+  bookContainer!: ElementRef<HTMLElement>;
+
+  private pageFlip?: any;
+
+  currentPage = 1;
+  totalPages = 0;
+
+  /*
+   * Your temporary test pages.
+   *
+   * Later we will replace/add pages when you
+   * provide the complete book.
+   */
+  readonly pages: string[] = [
+    'assets/digital-book/cover.jpeg',
+    'assets/digital-book/page-001.jpeg',
+    'assets/digital-book/page-002.jpeg',
+    'assets/digital-book/page-003.jpeg'
   ];
 
-  stats = [
-    { number: '10,000+', label: 'Books' },
-    { number: '500+', label: 'Active Members' },
-    { number: '12+', label: 'Categories' },
-    { number: '6', label: 'Days Open/Week' }
-  ];
+  constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngAfterViewInit(): void {
+    this.initializeBook();
+  }
 
-  ngOnDestroy() {
-    // cleanup if needed
+  private initializeBook(): void {
+
+    const container = this.bookContainer.nativeElement;
+
+    this.pageFlip = new PageFlip(container, {
+
+      width: 420,
+      height: 600,
+
+      size: 'stretch',
+
+      minWidth: 280,
+      maxWidth: 600,
+
+      minHeight: 400,
+      maxHeight: 850,
+
+      drawShadow: true,
+
+      maxShadowOpacity: 0.45,
+
+      flippingTime: 900,
+
+      usePortrait: true,
+
+      showCover: true,
+
+      mobileScrollSupport: true,
+
+      swipeDistance: 30,
+
+      useMouseEvents: true,
+
+      disableFlipByClick: false,
+
+      startPage: 0,
+
+      autoSize: true
+    });
+
+    /*
+     * Update page number whenever
+     * the user turns a page.
+     */
+    this.pageFlip.on('flip', (event:any) => {
+
+      this.currentPage = Number(event.data) + 1;
+
+    });
+
+    /*
+     * Load the actual book images.
+     */
+    this.pageFlip.loadFromImages(this.pages);
+
+    this.totalPages = this.pages.length;
+  }
+
+  /*
+   * Previous page button
+   */
+  previousPage(): void {
+
+    this.pageFlip?.flipPrev('bottom');
+
+  }
+
+  /*
+   * Next page button
+   */
+  nextPage(): void {
+
+    this.pageFlip?.flipNext('bottom');
+
+  }
+
+  /*
+   * Return to login page
+   */
+  goBack(): void {
+
+    this.router.navigate(['/login']);
+
+  }
+
+  /*
+   * Clean up the page-flip instance
+   * when leaving the component.
+   */
+  ngOnDestroy(): void {
+
+    this.pageFlip?.destroy();
+
   }
 
   goToLogin() {

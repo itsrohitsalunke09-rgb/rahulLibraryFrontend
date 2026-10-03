@@ -1,79 +1,174 @@
 <div class="library-3d-page">
-  <header class="page-header">
-    <div class="header-content">
-      <h1>Library 3D View</h1>
-      <p class="subtitle">Explore our library in 3D</p>
-    </div>
-    <a routerLink="/login" class="back-btn">
-      <i class="pi pi-arrow-left"></i>
-      <span>Back to Login</span>
-    </a>
-  </header>
 
-  <div class="library-3d-container">
-    <!-- 3D Book Viewer -->
-    <div class="book-viewer-section">
-      <div class="book-viewer">
-        <div class="book-3d-container">
-          <div class="book-3d" #book3d>
-            <!-- Book Cover -->
-            <div class="book-cover">
-              <div class="cover-front">
-                <div class="cover-content">
-                  <h2 class="book-title">राहुल सार्व. वाचनालय</h2>
-                  <p class="book-subtitle">Rahul Public Library</p>
-                  <div class="book-emblem">
-                    <i class="pi pi-book"></i>
-                  </div>
-                  <p class="book-tagline">ज्ञान की धरोहर</p>
-                </div>
-              </div>
-              <!-- Book Spine -->
-              <div class="book-spine">
-                <span class="spine-text">राहुल सार्व. वाचनालय</span>
-              </div>
-              <!-- Book Back -->
-              <div class="book-back">
-                <div class="back-content">
-                  <h3>Library Information</h3>
-                  <ul class="library-info">
-                    <li><i class="pi pi-map-marker"></i> Shindewadi, Madha, Solapur</li>
-                    <li><i class="pi pi-phone"></i> +91-XXXXXXXXXX</li>
-                    <li><i class="pi pi-envelope"></i> rahul.library&#64;example.com</li>
-                    <li><i class="pi pi-clock"></i> Mon-Sat: 8:00 AM - 8:00 PM</li>
-                    <li><i class="pi pi-book"></i> 10,000+ Books</li>
-                    <li><i class="pi pi-users"></i> 500+ Active Members</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <section class="digital-book-page">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="book-header">
+
+      <button
+        type="button"
+        class="back-button"
+        (click)="goBack()"
+        aria-label="Back to Login">
+
+        <i class="pi pi-arrow-left"></i>
+
+        <span>Back to Login</span>
+
+      </button>
+
+
+      <div class="book-title">
+
+        <h1>राहुल सार्वजनिक वाचनालय</h1>
+
+        <p>वाचनालयाची माहिती व इतिहास</p>
+
       </div>
 
-      <!-- Library Features -->
-      <div class="features-section">
-        <h2>Library Features</h2>
-        <div class="features-grid">
-          <div class="feature-card" *ngFor="let feature of features">
-            <div class="feature-icon">
-              <i [class]="feature.icon"></i>
-            </div>
-            <h3>{{ feature.title }}</h3>
-            <p>{{ feature.description }}</p>
-          </div>
+    </header>
+
+
+    <!-- =========================
+         BOOK CONTENT
+    ========================== -->
+
+    <main class="book-area">
+
+      <!-- Small introduction -->
+
+      <div class="book-intro">
+
+      <span class="book-icon">
+
+        <i class="pi pi-book"></i>
+
+      </span>
+
+
+        <div>
+
+          <h2>Library Digital Book</h2>
+
+          <p>
+            Explore the history and journey of
+            Rahul Public Library.
+          </p>
+
         </div>
+
       </div>
 
-      <!-- Library Stats -->
-      <div class="stats-section">
-        <div class="stats-grid">
-          <div class="stat-card" *ngFor="let stat of stats">
-            <div class="stat-number">{{ stat.number }}</div>
-            <div class="stat-label">{{ stat.label }}</div>
-          </div>
+
+      <!-- =========================
+           3D BOOK
+      ========================== -->
+
+      <div class="book-wrapper">
+
+
+        <!-- Previous -->
+
+        <button
+          type="button"
+          class="navigation-button previous"
+          (click)="previousPage()"
+          aria-label="Previous page">
+
+          <i class="pi pi-chevron-left"></i>
+
+        </button>
+
+
+        <!--
+          IMPORTANT:
+          The TypeScript @ViewChild('bookContainer')
+          connects to this element.
+        -->
+
+        <div
+          #bookContainer
+          class="book-container">
         </div>
+
+
+        <!-- Next -->
+
+        <button
+          type="button"
+          class="navigation-button next"
+          (click)="nextPage()"
+          aria-label="Next page">
+
+          <i class="pi pi-chevron-right"></i>
+
+        </button>
+
       </div>
+
+
+      <!-- =========================
+           PAGE CONTROLS
+      ========================== -->
+
+      <div class="book-controls">
+
+
+        <button
+          type="button"
+          class="control-button"
+          (click)="previousPage()">
+
+          <i class="pi pi-angle-left"></i>
+
+          <span>Previous</span>
+
+        </button>
+
+
+        <div class="page-counter">
+
+          Page {{ currentPage }} / {{ totalPages }}
+
+        </div>
+
+
+        <button
+          type="button"
+          class="control-button"
+          (click)="nextPage()">
+
+          <span>Next</span>
+
+          <i class="pi pi-angle-right"></i>
+
+        </button>
+
+
+      </div>
+
+
+      <!-- =========================
+           USER INSTRUCTION
+      ========================== -->
+
+      <p class="book-hint">
+
+        <i class="pi pi-info-circle"></i>
+
+        Drag the page corner or swipe to turn the page
+
+      </p>
+
+
+    </main>
+
+  </section>
+
+
 
       <!-- Navigation -->
       <div class="actions">
@@ -86,6 +181,4 @@
           <span>Register as Student</span>
         </button>
       </div>
-    </div>
-  </div>
 </div>

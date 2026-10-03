@@ -42,7 +42,7 @@ import {PasswordModule} from "primeng/password";
     IssuesComponent,
     UsersComponent,
     MyBooksComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
