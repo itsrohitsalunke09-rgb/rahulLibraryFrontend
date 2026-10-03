@@ -37,6 +37,49 @@
 
   gap: 1rem;
   margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.info-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--surface);
+  color: var(--text-color-secondary);
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  font-size: 1.1rem;
+}
+
+.info-btn:hover {
+  background: var(--surface-hover);
+  color: var(--primary-color);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.info-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.info-btn i {
+  font-size: 1.2rem;
 }
 
 .library-logo {

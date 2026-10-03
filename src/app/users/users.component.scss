@@ -1,3 +1,21 @@
+/* =========================================
+   PEOPLE PAGE
+========================================= */
+.dashboard-title h3 {
+  font-size: 1.6rem;
+}
+header,
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom:0px;
+}
+.card-header-content {
+  width: 100%;
+}
 .search-box {
   display: flex;
   align-items: center;
@@ -21,44 +39,21 @@
   border-color: var(--green);
   box-shadow: 0 0 0 3px rgba(47, 106, 74, 0.15);
 }
-
-.toolbar {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  padding: 1rem 1.25rem;
-  background: var(--surface-ground);
-  border-bottom: 1px solid var(--line);
-}
-
-.toolbar .search-box {
-  flex: 1;
-  min-width: 250px;
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-}
-
-.toolbar .search-box .p-input-icon-left {
-  width: 100%;
-}
-
-.toolbar .search-input {
-  width: 100%;
-  padding-left: 2.5rem;
-}
-
-.toolbar .search-icon {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
+p {
   color: var(--muted);
 }
 
-.toolbar .p-button-text {
-  margin-left: 0.5rem;
+.form {
+  padding: 1.2rem;
+  margin: 1rem 0;
+}
+
+.two {
+  grid-template-columns: 1fr 1fr;
+}
+
+.table-wrap {
+  padding: 0.4rem 0.6rem 1rem;
 }
 
 
@@ -78,7 +73,7 @@ section > header h1 {
 ========================================= */
 
 :host ::ng-deep .users-table-card {
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--surface-border);
@@ -89,20 +84,24 @@ section > header h1 {
 }
 
 :host ::ng-deep .users-table-card .p-card-content {
-  padding: 0;
+  padding: 0px 17px 17px 17px;
 }
 
 :host ::ng-deep .users-table-card .p-datatable {
   width: 100%;
-  border-radius: 16px;
+  border-radius: 0px;
   overflow: hidden;
 }
 
 :host ::ng-deep .users-table-card .p-datatable-wrapper {
   width: 100%;
-  border-radius: 16px;
   overflow-x: hidden !important;
 }
+
+:host ::ng-deep .p-datatable .p-paginator-bottom {
+   border-width: 0 0 0 0 !important;
+   border-radius: 0 !important;
+ }
 
 
 /* =========================================

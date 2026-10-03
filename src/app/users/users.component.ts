@@ -157,9 +157,4 @@ export class UsersComponent implements OnInit {
       this.editing.phone = value;
     }
   }
-  onGlobalFilter(event: Event) {
-    // this.query = (event.target as HTMLInputElement).value;
-    // this.currentPage = 0;
-    this.reload();
-  }
 }

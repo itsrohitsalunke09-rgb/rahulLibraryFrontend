@@ -9,12 +9,14 @@ import { IssuesComponent } from './issues/issues.component';
 import { UsersComponent } from './users/users.component';
 import { MyBooksComponent } from './my-books/my-books.component';
 import { ProfileComponent } from './profile/profile.component';
+import { Library3DComponent } from './library-3d/library-3d.component';
 import { AuthGuard } from './auth.guard';
 import { RoleGuard } from './role.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'library-3d', component: Library3DComponent },
   {
     path: 'app',
     component: ShellComponent,
