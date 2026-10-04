@@ -39,15 +39,13 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
 
-
-
-
 /* =========================================
    DIGITAL BOOK PAGE
 ========================================= */
 
 .digital-book-page {
-  min-height: 100dvh;
+  min-height: 100vh;
+  height: auto;
   width: 100%;
 
   display: flex;
@@ -65,7 +63,6 @@
 
   color: #2d2a26;
 }
-
 
 /* =========================================
    HEADER
@@ -91,7 +88,6 @@
 
   backdrop-filter: blur(10px);
 }
-
 
 /* Back button */
 
@@ -124,20 +120,17 @@
     transform 0.2s ease;
 }
 
-
 .back-button:hover {
   background: rgba(77, 59, 37, 0.08);
 
   transform: translateX(-2px);
 }
 
-
 /* Header title */
 
 .book-title {
   text-align: center;
 }
-
 
 .book-title h1 {
   margin: 0;
@@ -148,7 +141,6 @@
   font-weight: 700;
 }
 
-
 .book-title p {
   margin: 0.2rem 0 0;
 
@@ -156,7 +148,6 @@
 
   color: #777;
 }
-
 
 /* =========================================
    MAIN BOOK AREA
@@ -174,11 +165,10 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 1.25rem 1rem 2rem;
+  padding: 1.25rem 1rem ;
 
   box-sizing: border-box;
 }
-
 
 /* =========================================
    INTRODUCTION
@@ -194,7 +184,6 @@
 
   text-align: left;
 }
-
 
 .book-icon {
   width: 42px;
@@ -215,13 +204,11 @@
   font-size: 1.1rem;
 }
 
-
 .book-intro h2 {
   margin: 0;
 
   font-size: 1.05rem;
 }
-
 
 .book-intro p {
   margin: 0.15rem 0 0;
@@ -230,7 +217,6 @@
 
   font-size: 0.78rem;
 }
-
 
 /* =========================================
    BOOK WRAPPER
@@ -249,7 +235,6 @@
 
   box-sizing: border-box;
 }
-
 
 /* =========================================
    3D BOOK CONTAINER
@@ -270,7 +255,6 @@
 
   border-radius: 6px;
 }
-
 
 /* =========================================
    SIDE NAVIGATION BUTTONS
@@ -307,7 +291,6 @@
     box-shadow 0.2s ease;
 }
 
-
 .navigation-button:hover {
   transform: scale(1.08);
 
@@ -315,11 +298,9 @@
     0 5px 18px rgba(0, 0, 0, 0.2);
 }
 
-
 .navigation-button:active {
   transform: scale(0.95);
 }
-
 
 /* =========================================
    BOTTOM CONTROLS
@@ -334,7 +315,6 @@
 
   margin-top: 0.75rem;
 }
-
 
 .control-button {
   display: inline-flex;
@@ -361,18 +341,15 @@
     transform 0.2s ease;
 }
 
-
 .control-button:hover {
   background: #f5f1ea;
 
   transform: translateY(-1px);
 }
 
-
 .control-button:active {
   transform: translateY(0);
 }
-
 
 /* Page number */
 
@@ -387,7 +364,6 @@
 
   font-weight: 600;
 }
-
 
 /* =========================================
    HINT
@@ -408,7 +384,6 @@
 
   text-align: center;
 }
-
 
 /* =========================================
    TABLET
@@ -486,7 +461,6 @@
     font-size: 0.8rem;
   }
 }
-
 
 /* =========================================
    MOBILE
@@ -582,7 +556,6 @@
   }
 }
 
-
 /* =========================================
    VERY SMALL PHONES
 ========================================= */
@@ -619,4 +592,9 @@
 
     font-size: 0.62rem;
   }
+}
+
+:host ::ng-deep .stf__wrapper,
+:host ::ng-deep .stf__parent {
+  padding-bottom: 0 !important;
 }

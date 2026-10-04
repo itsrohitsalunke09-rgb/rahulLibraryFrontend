@@ -38,29 +38,6 @@
 
     <main class="book-area">
 
-      <!-- Small introduction -->
-
-      <div class="book-intro">
-
-      <span class="book-icon">
-
-        <i class="pi pi-book"></i>
-
-      </span>
-
-
-        <div>
-
-          <h2>Library Digital Book</h2>
-
-          <p>
-            Explore the history and journey of
-            Rahul Public Library.
-          </p>
-
-        </div>
-
-      </div>
 
 
       <!-- =========================
@@ -117,16 +94,7 @@
       <div class="book-controls">
 
 
-        <button
-          type="button"
-          class="control-button"
-          (click)="previousPage()">
 
-          <i class="pi pi-angle-left"></i>
-
-          <span>Previous</span>
-
-        </button>
 
 
         <div class="page-counter">
@@ -134,18 +102,6 @@
           Page {{ currentPage }} / {{ totalPages }}
 
         </div>
-
-
-        <button
-          type="button"
-          class="control-button"
-          (click)="nextPage()">
-
-          <span>Next</span>
-
-          <i class="pi pi-angle-right"></i>
-
-        </button>
 
 
       </div>
@@ -168,17 +124,4 @@
 
   </section>
 
-
-
-      <!-- Navigation -->
-      <div class="actions">
-        <button class="btn btn-primary" (click)="goToLogin()">
-          <i class="pi pi-sign-in"></i>
-          <span>Go to Login</span>
-        </button>
-        <button class="btn btn-secondary" (click)="goToRegister()">
-          <i class="pi pi-user-plus"></i>
-          <span>Register as Student</span>
-        </button>
-      </div>
 </div>

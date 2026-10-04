@@ -40,47 +40,6 @@
   position: relative;
 }
 
-.info-btn {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 40px;
-  height: 40px;
-
-  border: none;
-  border-radius: 50%;
-
-  background: var(--surface);
-  color: var(--text-color-secondary);
-
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-
-  transition: all 0.2s ease;
-
-  font-size: 1.1rem;
-}
-
-.info-btn:hover {
-  background: var(--surface-hover);
-  color: var(--primary-color);
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-}
-
-.info-btn:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
-.info-btn i {
-  font-size: 1.2rem;
-}
 
 .library-logo {
   width: 64px;
@@ -277,10 +236,16 @@ input:focus {
    BUTTON
    ========================================= */
 
-.btn {
-  justify-self: center;
+.login-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
   margin-top: 0.3rem;
-  background-color:#1a88d2;
+}
+
+.btn {
+  background-color: #1a88d2;
   font-family:
     'Inter',
     -apple-system,
@@ -288,6 +253,42 @@ input:focus {
     'Segoe UI',
     Roboto,
     sans-serif;
+
+  // keep your existing button styles
+}
+
+.library-info {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  text-decoration: none;
+
+  color: #2a1261;
+  background: #fff;
+  border: 1px solid rgba(42, 18, 97, 0.15);
+
+  font-size: 1rem;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.library-info:hover {
+  background-color: #f5f1ff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+
+.library-info:active {
+  transform: scale(0.94);
 }
 
 /* =========================================

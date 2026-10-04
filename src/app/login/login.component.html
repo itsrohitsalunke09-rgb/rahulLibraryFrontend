@@ -4,9 +4,7 @@
         <img src="favicon.svg" alt="Rahul Library Logo" class="library-logo">
         <h1>राहुल सार्व. वाचनालय</h1>
       </div>
-      <a href="/library-3d" class="info-btn" title="Library Info">
-        <i class="pi pi-info-circle"></i>
-      </a>
+
     <form (ngSubmit)="submit()">
       <label class="field">
         <span>Username</span>
@@ -37,12 +35,22 @@
       <p class="error" *ngIf="error">
         {{ error }}
       </p>
-      <button
-        class="btn"
-        type="submit"
-        [disabled]="loading">
-        {{ loading ? 'Logging in…' : 'Log in' }}
-      </button>
+      <div class="login-action">
+        <button
+          class="btn"
+          type="submit"
+          [disabled]="loading">
+          {{ loading ? 'Logging in…' : 'Log in' }}
+        </button>
+
+        <a
+          href="/library-3d"
+          class="library-info"
+          title="Library Info"
+          aria-label="Library Info">
+          <i class="pi pi-info-circle"></i>
+        </a>
+      </div>
     </form>
 <!--    <p class="register-link">-->
 <!--      Don't have an account?-->

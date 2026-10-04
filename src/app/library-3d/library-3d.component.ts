@@ -28,7 +28,23 @@ export class Library3DComponent implements  OnDestroy {
     'assets/digital-book/cover.jpeg',
     'assets/digital-book/page-001.jpeg',
     'assets/digital-book/page-002.jpeg',
-    'assets/digital-book/page-003.jpeg'
+    'assets/digital-book/page-003.jpeg',
+    'assets/digital-book/page-004.jpeg',
+    'assets/digital-book/page-005.jpeg',
+    'assets/digital-book/page-006.jpeg',
+    'assets/digital-book/page-007.jpeg',
+    'assets/digital-book/page-008.jpeg',
+    'assets/digital-book/page-009.jpeg',
+    'assets/digital-book/page-010.jpeg',
+    'assets/digital-book/page-011.jpeg',
+    'assets/digital-book/page-012.jpeg',
+    'assets/digital-book/page-013.jpeg',
+    'assets/digital-book/page-014.jpeg',
+    'assets/digital-book/page-015.jpeg',
+    'assets/digital-book/page-016.jpeg',
+    'assets/digital-book/page-017.jpeg',
+    'assets/digital-book/page-018.jpeg',
+    'assets/digital-book/page-019.jpeg'
   ];
 
   constructor(private router: Router) {}
