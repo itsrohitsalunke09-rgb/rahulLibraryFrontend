@@ -8,34 +8,15 @@
 
   <p-toast position="top-right"></p-toast>
 
-  <!-- Search & Filter Bar -->
-  <div class="toolbar" *ngIf="!loading">
-    <div class="toolbar-content">
-      <div class="search-box" style="flex: 1; min-width: 250px;">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input type="text" pInputText [(ngModel)]="query" (input)="onGlobalFilter($event)" placeholder="Search book..." class="search-input" style="width: 100%;">
-        </span>
-      </div>
-    </div>
-  </div>
-
   <p-card styleClass="my-books-table-card">
     <p-table
       #dt
       [value]="issues"
-      [paginator]="true"
-      [rows]="pageSize"
-      [totalRecords]="totalElements"
-      [rowsPerPageOptions]="[5, 10, 25]"
-      [lazy]="true"
-      (onLazyLoad)="onPageChange($event)"
+      [paginator]="false"
       [sortMode]="'single'"
-      (sort)="onSort($event)"
       [tableStyle]="{ 'min-width': '100%' }"
       styleClass="p-datatable-sm responsive-table"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="false"
       [rowHover]="true"
       [loading]="loading">
       <ng-template pTemplate="header">
