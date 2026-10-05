@@ -1,2 +1,463 @@
 p { color: var(--muted); }
-.table-wrap { padding: 0.4rem 0.6rem 1rem; margin-top: 1rem; }
+
+.toolbar {
+  padding: 1rem 1.25rem;
+  background: var(--surface-ground);
+  border-bottom: 1px solid var(--line);
+}
+
+.toolbar-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.search-input {
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: var(--surface-card);
+  color: var(--text-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.15);
+}
+
+.status-dropdown {
+  min-width: 180px;
+}
+
+/* Table card */
+::ng-deep .my-books-table-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 1px solid var(--surface-border);
+}
+
+::ng-deep .my-books-table-card .p-card-body {
+  padding: 0;
+}
+
+::ng-deep .my-books-table-card .p-card-content {
+  padding: 0;
+}
+
+/* Pagination */
+::ng-deep .my-books-table-card .p-paginator {
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface-ground);
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-paginator-current {
+  font-size: 0.75rem;
+  color: var(--text-color-secondary);
+  padding: 0 0.5rem;
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-paginator-pages {
+  gap: 0.125rem;
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-paginator-page {
+  min-width: 28px;
+  height: 28px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+  padding: 0 0.5rem;
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-paginator-page.p-highlight {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-paginator-first,
+::ng-deep .my-books-table-card .p-paginator .p-paginator-prev,
+::ng-deep .my-books-table-card .p-paginator .p-paginator-next,
+::ng-deep .my-books-table-card .p-paginator .p-paginator-last {
+  min-width: 28px;
+  height: 28px;
+  font-size: 0.875rem;
+  border-radius: 6px;
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-dropdown {
+  width: auto;
+  min-width: 60px;
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-dropdown .p-dropdown-label {
+  font-size: 0.75rem;
+  padding: 0.25rem 1.5rem 0.25rem 0.5rem;
+}
+
+::ng-deep .my-books-table-card .p-paginator .p-dropdown-trigger {
+  width: 1.75rem;
+}
+
+/* Table Styles */
+::ng-deep .responsive-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+::ng-deep .responsive-table .p-datatable-header,
+::ng-deep .responsive-table .p-datatable-thead > tr > th {
+  background: var(--surface-ground);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+::ng-deep .responsive-table .p-datatable-thead > tr > th {
+  background: var(--surface-ground);
+  border-bottom: 2px solid var(--line);
+  color: var(--text-color-secondary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 1rem;
+  white-space: nowrap;
+}
+
+::ng-deep .responsive-table .p-datatable-tbody > tr {
+  transition: background-color 0.15s;
+}
+
+::ng-deep .responsive-table .p-datatable-tbody > tr:hover {
+  background: var(--surface-hover);
+}
+
+::ng-deep .responsive-table .p-datatable-tbody > tr > td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+
+.cell-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.cell-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cell-value {
+  font-size: 0.9rem;
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.marathi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+.overdue {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.badge.ok {
+  background: rgba(46, 204, 113, 0.15);
+  color: #27ae60;
+}
+
+.badge.warn {
+  background: rgba(243, 156, 18, 0.15);
+  color: #f39c12;
+}
+
+.badge.danger {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.badge.secondary {
+  background: rgba(149, 165, 166, 0.15);
+  color: #7f8c8d;
+}
+
+.action-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  min-width: 60px;
+}
+
+.action-icons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--primary-color);
+  color: white;
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.return-btn {
+  background: #27ae60;
+}
+
+.return-btn:hover {
+  background: #219a52;
+}
+
+.return-date {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem !important;
+}
+
+.empty-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--muted);
+}
+
+.empty-content i {
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+.hint {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.confirm-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.confirm-dialog-content i {
+  font-size: 3rem;
+  color: var(--primary-color);
+}
+
+.confirm-dialog-content p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .toolbar {
+    padding: 1rem;
+  }
+
+  .search-box {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  ::ng-deep .responsive-table .p-datatable-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  ::ng-deep .responsive-table .p-datatable-thead > tr > th,
+  ::ng-deep .responsive-table .p-datatable-tbody > tr > td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    min-width: 140px;
+  }
+
+  .cell-label {
+    display: none;
+  }
+
+  .cell-value {
+    font-size: 0.85rem;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .action-cell {
+    width: 60px;
+    min-width: 60px;
+  }
+
+  .action-btn {
+    padding: 0.375rem 0.5rem;
+    font-size: 0;
+  }
+
+  .action-btn .d-none {
+    display: none !important;
+  }
+
+  .action-btn i {
+    font-size: 1rem;
+  }
+
+  .action-btn.return-btn {
+    padding: 0.375rem;
+    border-radius: 50%;
+  }
+
+  .return-date {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  ::ng-deep .responsive-table .p-datatable-thead > tr > th,
+  ::ng-deep .responsive-table .p-datatable-tbody > tr > td {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.8rem;
+    min-width: 120px;
+  }
+
+  .cell-value {
+    font-size: 0.8rem;
+  }
+
+  .action-cell {
+    width: 50px;
+    min-width: 50px;
+  }
+
+  .action-btn {
+    padding: 0.375rem;
+    border-radius: 50%;
+  }
+
+  .action-btn i {
+    font-size: 1rem;
+  }
+
+  .return-date {
+    display: none;
+  }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .toolbar-content {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    flex: 1;
+    max-width: 300px;
+  }
+}
+
+/* High DPI / Retina displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .badge {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .cell-value {
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .action-btn:hover,
+  .search-input:focus {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .toolbar,
+  .action-cell,
+  .p-paginator {
+    display: none !important;
+  }
+}
+
+/* Touch target improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .action-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .search-input {
+    min-height: 44px;
+  }
+
+  .status-dropdown {
+    min-height: 44px;
+  }
+}

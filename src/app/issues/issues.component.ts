@@ -13,7 +13,6 @@ import { SelectItem } from 'primeng/api';
 export class IssuesComponent implements OnInit {
   issues: BookIssue[] = [];
   query = '';
-  
   // Pagination
   currentPage = 0;
   pageSize = 10;
@@ -30,13 +29,6 @@ export class IssuesComponent implements OnInit {
     returned: number;
     overdue: number;
   };
-
-  statusOptions: SelectItem[] = [
-    { label: 'All Statuses', value: '' },
-    { label: 'Issued', value: 'ISSUED' },
-    { label: 'Returned', value: 'RETURNED' },
-    { label: 'Overdue', value: 'OVERDUE' }
-  ];
 
   constructor(private api: LibraryApiService, private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
@@ -85,19 +77,6 @@ export class IssuesComponent implements OnInit {
   onPageChange(event: any) {
     this.currentPage = event.first / event.rows;
     this.pageSize = event.rows;
-    this.reload();
-  }
-
-  onSort(event: any) {
-    this.sortField = event.field;
-    this.sortDirection = event.order === 1 ? 'asc' : 'desc';
-    this.currentPage = 0;
-    this.reload();
-  }
-
-  onStatusFilterChange(event: any) {
-    this.statusFilter = event.value || '';
-    this.currentPage = 0;
     this.reload();
   }
 

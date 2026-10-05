@@ -1,21 +1,102 @@
-<section>
-  <h1>My books</h1>
-  <p>Copies currently with you and your past returns.</p>
-  <p class="error" *ngIf="error">{{ error }}</p>
-  <div class="table-wrap card">
-    <table>
-      <thead>
-        <tr><th>Book</th><th>Issued</th><th>Due</th><th>Status</th></tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let issue of issues">
-          <td>{{ issue.bookTitle }}</td>
-          <td>{{ issue.issueDate }}</td>
-          <td>{{ issue.dueDate }}</td>
-          <td><span class="badge" [ngClass]="badge(issue.status)">{{ issue.status }}</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="empty" *ngIf="!issues.length">You have no issued books yet. Browse the catalog and ask the librarian to issue a copy.</p>
+<section class="my-books-page">
+  <header class="page-header">
+    <div>
+      <h1>My Books</h1>
+      <p>Track your issued books and return dates</p>
+    </div>
+  </header>
+
+  <p-toast position="top-right"></p-toast>
+
+  <!-- Search & Filter Bar -->
+  <div class="toolbar" *ngIf="!loading">
+    <div class="toolbar-content">
+      <div class="search-box" style="flex: 1; min-width: 250px;">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText [(ngModel)]="query" (input)="onGlobalFilter($event)" placeholder="Search book..." class="search-input" style="width: 100%;">
+        </span>
+      </div>
+    </div>
   </div>
+
+  <p-card styleClass="my-books-table-card">
+    <p-table
+      #dt
+      [value]="issues"
+      [paginator]="true"
+      [rows]="pageSize"
+      [totalRecords]="totalElements"
+      [rowsPerPageOptions]="[5, 10, 25]"
+      [lazy]="true"
+      (onLazyLoad)="onPageChange($event)"
+      [sortMode]="'single'"
+      (sort)="onSort($event)"
+      [tableStyle]="{ 'min-width': '100%' }"
+      styleClass="p-datatable-sm responsive-table"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowHover]="true"
+      [loading]="loading">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="bookTitle">Book <p-sortIcon field="bookTitle"></p-sortIcon></th>
+          <th pSortableColumn="issueDate">Issued <p-sortIcon field="issueDate"></p-sortIcon></th>
+          <th pSortableColumn="dueDate">Due <p-sortIcon field="dueDate"></p-sortIcon></th>
+          <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+          <th style="width: 60px;">Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-issue>
+        <tr>
+          <td class="book-cell">
+            <div class="cell-content">
+              <span class="cell-value" [class.marathi]="issue.category === 'Marathi Literature'">{{ issue.bookTitle }}</span>
+            </div>
+          </td>
+          <td class="date-cell">
+            <div class="cell-content">
+              <span class="cell-value">{{ issue.issueDate }}</span>
+            </div>
+          </td>
+          <td class="date-cell">
+            <div class="cell-content">
+              <span class="cell-value" [class.overdue]="isOverdue(issue)">{{ issue.dueDate }}</span>
+            </div>
+          </td>
+          <td class="status-cell">
+            <span class="badge" [ngClass]="badge(issue.status)">{{ issue.status }}</span>
+          </td>
+          <td class="action-cell">
+            <div class="action-icons">
+              <button class="action-btn return-btn" *ngIf="issue.status !== 'RETURNED'" (click)="confirmReturn(issue)" pTooltip="Return the book" aria-label="Return book">
+                <i class="pi pi-undo"></i>
+              </button>
+              <span class="return-date" *ngIf="issue.status === 'RETURNED'">{{ issue.returnDate }}</span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="empty-state">
+            <div class="empty-content">
+              <i class="pi pi-book"></i>
+              <p>No books issued yet.</p>
+              <p class="hint">Browse the catalog and ask the librarian to issue a book.</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+  <p-confirmDialog>
+    <ng-template pTemplate="message" let-message>
+      <div class="confirm-dialog-content">
+        <i class="pi pi-exclamation-circle"></i>
+        <p>{{ message.message }}</p>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
 </section>
