@@ -7,7 +7,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   selector: 'app-my-books',
   templateUrl: './my-books.component.html',
   styleUrls: ['./my-books.component.scss'],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, MessageService]
 })
 export class MyBooksComponent implements OnInit {
   issues: BookIssue[] = [];
