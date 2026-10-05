@@ -12,11 +12,18 @@
     <p-table
       #dt
       [value]="issues"
-      [paginator]="false"
+      [paginator]="true"
+      [rows]="10"
+      [totalRecords]="totalElements"
+      [rowsPerPageOptions]="[5, 10, 25]"
+      [lazy]="true"
+      (onLazyLoad)="onPageChange($event)"
       [sortMode]="'single'"
+      (sort)="onSort($event)"
       [tableStyle]="{ 'min-width': '100%' }"
       styleClass="p-datatable-sm responsive-table"
-      [showCurrentPageReport]="false"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [rowHover]="true"
       [loading]="loading">
       <ng-template pTemplate="header">

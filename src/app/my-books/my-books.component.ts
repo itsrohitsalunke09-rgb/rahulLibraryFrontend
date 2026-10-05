@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryApiService } from '../library-api.service';
-import { BookIssue } from '../models';
+import { BookIssue, PagedResponse } from '../models';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
@@ -13,6 +13,14 @@ export class MyBooksComponent implements OnInit {
   issues: BookIssue[] = [];
   loading = false;
 
+  // Pagination
+  currentPage = 0;
+  pageSize = 10;
+  totalElements = 0;
+  totalPages = 0;
+  sortField = 'issueDate';
+  sortDirection = 'desc';
+
   constructor(private api: LibraryApiService, private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
   ngOnInit() {
@@ -21,9 +29,11 @@ export class MyBooksComponent implements OnInit {
 
   reload() {
     this.loading = true;
-    this.api.myIssues().subscribe({
-      next: (issues: BookIssue[]) => {
-        this.issues = issues;
+    this.api.myIssuesPaged(this.currentPage, this.pageSize, 'issueDate', 'desc').subscribe({
+      next: (response: any) => {
+        this.issues = response.content;
+        this.totalElements = response.totalElements;
+        this.totalPages = response.totalPages;
         this.loading = false;
       },
       error: () => {
@@ -31,6 +41,19 @@ export class MyBooksComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not load your books.' });
       }
     });
+  }
+
+  onPageChange(event: any) {
+    this.currentPage = event.first / event.rows;
+    this.pageSize = event.rows;
+    this.reload();
+  }
+
+  onSort(event: any) {
+    this.sortField = event.field;
+    this.sortDirection = event.order === 1 ? 'asc' : 'desc';
+    this.currentPage = 0;
+    this.reload();
   }
 
   badge(status: string) {
@@ -46,7 +69,7 @@ export class MyBooksComponent implements OnInit {
     return dueDate < today;
   }
 
-  confirmReturn(issue: BookIssue) {
+  confirmReturn(issue: any) {
     this.confirmationService.confirm({
       header: 'Confirm Return',
       message: `Mark "${issue.bookTitle}" as returned?`,
@@ -57,13 +80,13 @@ export class MyBooksComponent implements OnInit {
     });
   }
 
-  returnBook(issue: BookIssue) {
+  returnBook(issue: any) {
     this.api.returnBook(issue.id).subscribe({
       next: () => {
         this.reload();
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Book returned successfully.' });
       },
-      error: err => this.messageService.add({ severity: 'error', summary: 'Error', detail: err.error?.message || 'Could not mark return.' })
+      error: err => console.error(err)
     });
   }
 }

@@ -123,6 +123,15 @@ export class LibraryApiService {
     return this.http.get<BookIssue[]>(`${environment.apiUrl}/issues/mine`);
   }
 
+  myIssuesPaged(page = 0, size = 10, sort = 'issueDate', direction = 'desc') {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sort', sort)
+      .set('direction', direction);
+    return this.http.get<PagedResponse<BookIssue>>(`${environment.apiUrl}/issues/mine`, { params });
+  }
+
   issueBook(bookId: number, studentId: number, days = 14) {
     return this.http.post<BookIssue>(`${environment.apiUrl}/issues`, { bookId, studentId, days });
   }
