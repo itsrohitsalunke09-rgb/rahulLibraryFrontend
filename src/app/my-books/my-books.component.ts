@@ -31,7 +31,7 @@ export class MyBooksComponent implements OnInit {
     this.loading = true;
     this.api.myIssuesPaged(this.currentPage, this.pageSize, this.sortField, this.sortDirection).subscribe({
       next: (response: any) => {
-        this.issues = response.content;
+        this.issues = response;
         this.totalElements = response.totalElements;
         this.totalPages = response.totalPages;
         this.loading = false;
