@@ -1,8 +1,7 @@
 <section class="my-books-page">
   <header class="page-header">
     <div>
-      <h1>My Books</h1>
-      <p>Track your issued books and return dates</p>
+      <h3>My Books</h3>
     </div>
   </header>
 
@@ -18,8 +17,6 @@
       [rowsPerPageOptions]="[5, 10, 25]"
       [lazy]="true"
       (onLazyLoad)="onPageChange($event)"
-      [sortMode]="'single'"
-      (sort)="onSort($event)"
       [tableStyle]="{ 'min-width': '100%' }"
       styleClass="p-datatable-sm responsive-table"
       [showCurrentPageReport]="true"
@@ -28,10 +25,10 @@
       [loading]="loading">
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="bookTitle">Book <p-sortIcon field="bookTitle"></p-sortIcon></th>
-          <th pSortableColumn="issueDate">Issued <p-sortIcon field="issueDate"></p-sortIcon></th>
-          <th pSortableColumn="dueDate">Due <p-sortIcon field="dueDate"></p-sortIcon></th>
-          <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+          <th pSortableColumn="bookTitle">Book </th>
+          <th pSortableColumn="issueDate">Issued</th>
+          <th pSortableColumn="dueDate">Due</th>
+          <th pSortableColumn="status">Status</th>
           <th style="width: 60px;">Action</th>
         </tr>
       </ng-template>
