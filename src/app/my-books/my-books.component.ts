@@ -29,7 +29,7 @@ export class MyBooksComponent implements OnInit {
 
   reload() {
     this.loading = true;
-    this.api.myIssuesPaged(this.currentPage, this.pageSize, 'issueDate', 'desc').subscribe({
+    this.api.myIssuesPaged(this.currentPage, this.pageSize, this.sortField, this.sortDirection).subscribe({
       next: (response: any) => {
         this.issues = response.content;
         this.totalElements = response.totalElements;
@@ -69,7 +69,7 @@ export class MyBooksComponent implements OnInit {
     return dueDate < today;
   }
 
-  confirmReturn(issue: any) {
+  confirmReturn(issue: BookIssue) {
     this.confirmationService.confirm({
       header: 'Confirm Return',
       message: `Mark "${issue.bookTitle}" as returned?`,
@@ -80,7 +80,7 @@ export class MyBooksComponent implements OnInit {
     });
   }
 
-  returnBook(issue: any) {
+  returnBook(issue: BookIssue) {
     this.api.returnBook(issue.id).subscribe({
       next: () => {
         this.reload();
