@@ -21,24 +21,26 @@ export class MyBooksComponent implements OnInit {
   sortField = 'issueDate';
   sortDirection = 'desc';
 
-  constructor(private api: LibraryApiService, private confirmationService: ConfirmationService, private messageService: MessageService) {}
+  constructor(
+    private api: LibraryApiService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
-    this.reload();
   }
 
-  reload() {
+  loadData() {
     this.loading = true;
     this.api.myIssuesPaged(this.currentPage, this.pageSize, this.sortField, this.sortDirection).subscribe({
       next: (response: any) => {
-        this.issues = response;
-        this.totalElements = response.totalElements;
-        this.totalPages = response.totalPages;
+        this.issues = response.content || response;
+        this.totalElements = response.totalElements || 0;
+        this.totalPages = response.totalPages || 0;
         this.loading = false;
       },
       error: () => {
         this.loading = false;
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Could not load your books.' });
       }
     });
   }
@@ -46,14 +48,14 @@ export class MyBooksComponent implements OnInit {
   onPageChange(event: any) {
     this.currentPage = event.first / event.rows;
     this.pageSize = event.rows;
-    this.reload();
+    this.loadData();
   }
 
   onSort(event: any) {
     this.sortField = event.field;
     this.sortDirection = event.order === 1 ? 'asc' : 'desc';
     this.currentPage = 0;
-    this.reload();
+    this.loadData();
   }
 
   badge(status: string) {
@@ -74,19 +76,18 @@ export class MyBooksComponent implements OnInit {
       header: 'Confirm Return',
       message: `Mark "${issue.bookTitle}" as returned?`,
       icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.returnBook(issue);
-      }
+      accept: () => this.returnBook(issue)
     });
   }
 
   returnBook(issue: BookIssue) {
     this.api.returnBook(issue.id).subscribe({
       next: () => {
-        this.reload();
+        this.loadData();
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Book returned successfully.' });
       },
-      error: err => console.error(err)
+      error: () => {}
     });
   }
+
 }
