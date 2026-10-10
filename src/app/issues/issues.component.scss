@@ -1,6 +1,3 @@
-/* =========================================================
-   PAGE
-   ========================================================= */
 header,
 .actions {
   display: flex;
@@ -10,8 +7,18 @@ header,
   flex-wrap: wrap;
   margin-bottom:0px;
 }
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .dashboard-title h3 {
-  font-size: 1.6rem;
+  margin-top: 0rem;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: var(--text-color);
 }
 .issues-page {
   width: 100%;
@@ -31,11 +38,6 @@ header,
   font-weight: 700;
 }
 
-
-/* =========================================================
-   GENERAL
-   ========================================================= */
-
 p {
   color: var(--muted);
 }
@@ -50,11 +52,6 @@ p {
 .status-dropdown {
   min-width: 180px;
 }
-
-
-/* =========================================================
-   ISSUES CARD
-   ========================================================= */
 
 :host ::ng-deep .issues-table-card {
   width: 100%;
@@ -75,11 +72,6 @@ p {
 :host ::ng-deep .issues-table-card .p-card-header {
   padding: 0;
 }
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
 
 .card-header-content {
   width: 100%;
@@ -110,11 +102,6 @@ p {
   box-shadow: 0 0 0 3px rgba(47, 106, 74, 0.15);
 }
 
-
-/* =========================================================
-   DASHBOARD STATS
-   ========================================================= */
-
 .dashboard-stats {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -123,11 +110,6 @@ p {
   margin-top: 0rem;
   margin-bottom: 1rem;
 }
-
-
-/* =========================================================
-   STAT CARD
-   ========================================================= */
 
 :host ::ng-deep .clickable-stat-card {
   min-width: 0;
@@ -193,9 +175,6 @@ p {
   color: #e3b57a;
 }
 
-/* =========================================================
-   TABLE
-   ========================================================= */
 :host ::ng-deep .responsive-issues-table {
   width: 100%;
 }
@@ -220,10 +199,6 @@ p {
   padding: 0.65rem 0.75rem;
   vertical-align: middle;
 }
-
-/* =========================================================
-   TABLE COLUMNS
-   ========================================================= */
 
 .col-book {
   width: 25%;
@@ -250,20 +225,12 @@ p {
   white-space: nowrap;
 }
 
-
-/* Long text */
-
 .col-book,
 .col-student {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-
-/* =========================================================
-   SORT ICON
-   ========================================================= */
 
 :host ::ng-deep .responsive-issues-table
 .p-sortable-column
@@ -352,8 +319,8 @@ section > header h1 {
 }
 
 @media (max-width: 768px) {
-  section > header h1 {
-    font-size: 1.3rem !important;
+  .dashboard-title h3 {
+    font-size: 1.3rem;
   }
   :host ::ng-deep .responsive-issues-table .p-paginator-rpp-options {
     display: none !important;
@@ -415,8 +382,8 @@ section > header h1 {
 ================================ */
 
 @media (max-width: 480px) {
-  section > header h1 {
-    font-size: 1rem !important;
+  .dashboard-title h3 {
+    font-size: 1.15rem;
   }
   :host ::ng-deep .responsive-issues-table .p-paginator-rpp-options {
     display: none !important;
@@ -462,8 +429,8 @@ section > header h1 {
   }
 }
 
-/* ================================
-   HIDE ROWS-PER-PAGE DROPDOWN
-================================ */
-
-
+@media (max-width: 360px) {
+  .dashboard-title h3 {
+    font-size: 1.05rem;
+  }
+}

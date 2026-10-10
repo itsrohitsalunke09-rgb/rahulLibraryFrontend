@@ -1,8 +1,10 @@
 <section class="dashboard" (click)="onDashboardClick($event)">
 
-  <div class="dashboard-title">
+  <header class="page-header">
+    <div class="dashboard-title">
       <h3>Dashboard</h3>
-  </div>
+    </div>
+  </header>
 
   <p class="error" *ngIf="error">
     {{ error }}

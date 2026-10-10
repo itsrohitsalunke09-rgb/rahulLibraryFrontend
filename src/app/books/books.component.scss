@@ -405,6 +405,14 @@ th[style*="cursor"] {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 
+:host ::ng-deep .p-datatable .p-paginator-bottom {
+  border-width: 0 0 0 0 !important;
+  border-radius: 0 !important;
+}
+:host ::ng-deep .p-card .p-card-content {
+  padding: 0 0 0 0 !important;
+}
+
 :host ::ng-deep .catalog-card .p-card-header {
   //background: var(--paper);
   //border-bottom: 1px solid var(--line);
@@ -527,31 +535,9 @@ th[style*="cursor"] {
   margin-left: 10px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .dashboard-title h3 {
   font-size: 1.6rem;
+  margin-top:0rem;
 }
 
 @media (max-width: 700px) {

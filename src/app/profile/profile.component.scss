@@ -232,6 +232,9 @@
     width: 100%;
     max-width: 100%;
   }
+  .dashboard-title h3 {
+    font-size: 1.3rem;
+  }
   .profile-page > header h1 {
     font-size: 1.55rem;
   }
@@ -301,7 +304,9 @@
   .profile-page > header h1 {
     font-size: 1.2rem;
   }
-
+  .dashboard-title h3 {
+    font-size: 1.15rem;
+  }
   :host ::ng-deep .profile-main-card {
     border-radius: 10px;
   }
@@ -405,7 +410,9 @@
   .profile-page > header h1 {
     font-size: 1.05rem;
   }
-
+  .dashboard-title h3 {
+    font-size: 1.05rem;
+  }
   :host ::ng-deep .profile-main-card .p-card-body {
     padding: 0.6rem;
   }
@@ -456,4 +463,13 @@
   .edit-actions i {
     font-size: 0.9rem;
   }
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard-title h3 {
+  font-size: 1.3rem;
 }

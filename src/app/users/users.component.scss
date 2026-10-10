@@ -1,8 +1,6 @@
-/* =========================================
-   PEOPLE PAGE
-========================================= */
 .dashboard-title h3 {
   font-size: 1.6rem;
+  margin-top: 0rem;
 }
 header,
 .actions {
@@ -56,21 +54,11 @@ p {
   padding: 0.4rem 0.6rem 1rem;
 }
 
-
-/* =========================================
-   PAGE TITLE
-========================================= */
-
 section > header h1 {
   font-size: 2rem;
   line-height: 1.2;
   margin: 0;
 }
-
-
-/* =========================================
-   USERS CARD
-========================================= */
 
 :host ::ng-deep .users-table-card {
   border-radius: 12px;
@@ -103,11 +91,6 @@ section > header h1 {
    border-radius: 0 !important;
  }
 
-
-/* =========================================
-   TABLE
-========================================= */
-
 :host ::ng-deep .responsive-people-table {
   width: 100%;
 }
@@ -123,11 +106,6 @@ section > header h1 {
   text-overflow: ellipsis;
 }
 
-
-/* =========================================
-   ACTION ICONS
-========================================= */
-
 .action-icons {
   display: flex;
   gap: 10px;
@@ -138,11 +116,6 @@ section > header h1 {
 .action-icons i {
   cursor: pointer;
 }
-
-
-/* =========================================
-   TABLE COLUMN WIDTHS
-========================================= */
 
 :host ::ng-deep .responsive-people-table th:nth-child(1),
 :host ::ng-deep .responsive-people-table td:nth-child(1) {
@@ -180,11 +153,6 @@ section > header h1 {
   text-align: center;
 }
 
-
-/* =========================================
-   MOBILE
-========================================= */
-
 @media (max-width: 768px) {
   :host ::ng-deep .responsive-people-table .p-paginator-rpp-options {
     display: none !important;
@@ -194,20 +162,13 @@ section > header h1 {
     display: none !important;
   }
 
-
-  /* =========================================
-     REMOVE PAgINATOR BORDER
-  ========================================= */
-
   :host ::ng-deep .responsive-people-table .p-paginator-bottom {
     border-width: 0 !important;
   }
-  /* Title */
-  section > header h1 {
-    font-size: 1.55rem !important;
-  }
 
-  /* Table cells */
+  .dashboard-title h3 {
+    font-size: 1.3rem;
+  }
   :host ::ng-deep .responsive-people-table th,
   :host ::ng-deep .responsive-people-table td {
     padding: 0.45rem 0.3rem !important;
@@ -216,8 +177,6 @@ section > header h1 {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
-  /* Column widths */
   :host ::ng-deep .responsive-people-table th:nth-child(1),
   :host ::ng-deep .responsive-people-table td:nth-child(1) {
     width: 18%;
@@ -280,11 +239,6 @@ section > header h1 {
   }
 }
 
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
 @media (max-width: 480px) {
   :host ::ng-deep .responsive-people-table .p-paginator-rpp-options {
     display: none !important;
@@ -294,18 +248,12 @@ section > header h1 {
     display: none !important;
   }
 
-
-  /* =========================================
-     REMOVE PAgINATOR BORDER
-  ========================================= */
-
   :host ::ng-deep .responsive-people-table .p-paginator-bottom {
     border-width: 0 !important;
   }
-  /* Title */
-  section > header h1 {
-    font-size: 1.2rem !important;
-  }
+  /* Title */ .dashboard-title h3 {
+                font-size: 1.15rem;
+              }
 
   /* Table */
   :host ::ng-deep .responsive-people-table th,
@@ -339,11 +287,6 @@ section > header h1 {
     font-size: 0.6rem !important;
   }
 }
-
-
-/* =========================================
-   VERY SMALL MOBILE
-========================================= */
 
 @media (max-width: 360px) {
   :host ::ng-deep .responsive-people-table .p-paginator-rpp-options {
@@ -380,10 +323,5 @@ section > header h1 {
     font-size: 0.62rem;
   }
 }
-
-
-/* =========================================
-   HIDE ROWS-PER-PAGE DROPDOWN
-========================================= */
 
 
