@@ -51,13 +51,6 @@ export class MyBooksComponent implements OnInit {
     this.loadData();
   }
 
-  onSort(event: any) {
-    this.sortField = event.field;
-    this.sortDirection = event.order === 1 ? 'asc' : 'desc';
-    this.currentPage = 0;
-    this.loadData();
-  }
-
   badge(status: string) {
     if (status === 'RETURNED') { return 'ok'; }
     if (status === 'OVERDUE') { return 'danger'; }

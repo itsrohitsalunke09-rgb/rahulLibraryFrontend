@@ -1,3 +1,4 @@
+
 <section class="my-books-page">
   <header class="page-header">
     <div class="dashboard-title">
@@ -17,62 +18,80 @@
       [rowsPerPageOptions]="[5, 10, 25]"
       [lazy]="true"
       (onLazyLoad)="onPageChange($event)"
-      [tableStyle]="{ 'min-width': '100%' }"
+      [tableStyle]="{ 'min-width': '700px', 'width': '100%' }"
       styleClass="p-datatable-sm responsive-table"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [rowHover]="true"
       [loading]="loading">
+
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="bookTitle">Book </th>
-          <th pSortableColumn="issueDate">Issued </th>
-          <th pSortableColumn="dueDate">Due </th>
-          <th pSortableColumn="status">Status </th>
-          <th style="width: 60px;">Action</th>
+          <th class="serial-column">SR. No.</th>
+          <th>Book</th>
+          <th>Issued</th>
+          <th>Due</th>
+          <th>Status</th>
+          <th class="returned-column">Returned Date</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-issue>
+
+      <ng-template pTemplate="body" let-issue let-rowIndex="rowIndex">
         <tr>
+          <td class="serial-column">
+            {{ dt.first + rowIndex + 1 }}
+          </td>
+
           <td class="book-cell">
             <div class="cell-content">
-              <span class="cell-value" [class.marathi]="issue.category === 'Marathi Literature'">{{ issue.bookTitle }}</span>
+              <span
+                class="cell-value"
+                [class.marathi]="issue.category === 'Marathi Literature'">
+                {{ issue.bookTitle }}
+              </span>
             </div>
           </td>
+
           <td class="date-cell">
-            <div class="cell-content">
-              <span class="cell-value">{{ issue.issueDate }}</span>
-            </div>
+            <span class="cell-value">{{ issue.issueDate }}</span>
           </td>
+
           <td class="date-cell">
-            <div class="cell-content">
-              <span class="cell-value" [class.overdue]="isOverdue(issue)">{{ issue.dueDate }}</span>
-            </div>
+            <span
+              class="cell-value"
+              [class.overdue]="isOverdue(issue)">
+              {{ issue.dueDate }}
+            </span>
           </td>
+
           <td class="status-cell">
-            <span class="badge" [ngClass]="badge(issue.status)">{{ issue.status }}</span>
+            <span class="badge" [ngClass]="badge(issue.status)">
+              {{ issue.status }}
+            </span>
           </td>
-          <td class="action-cell">
-            <div class="action-icons">
-              <button class="action-btn return-btn" *ngIf="issue.status !== 'RETURNED'" (click)="confirmReturn(issue)" pTooltip="Return the book" aria-label="Return book">
-                <i class="pi pi-undo"></i>
-              </button>
-              <span class="return-date" *ngIf="issue.status === 'RETURNED'">{{ issue.returnDate }}</span>
-            </div>
+
+          <td class="returned-column">
+            <span class="cell-value">
+              {{ issue.returnDate || '-' }}
+            </span>
           </td>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" class="empty-state">
+          <td colspan="6" class="empty-state">
             <div class="empty-content">
               <i class="pi pi-book"></i>
               <p>No books issued yet.</p>
-              <p class="hint">Browse the catalog and ask the librarian to issue a book.</p>
+              <p class="hint">
+                Browse the catalog and ask the librarian to issue a book.
+              </p>
             </div>
           </td>
         </tr>
       </ng-template>
+
     </p-table>
   </p-card>
 
