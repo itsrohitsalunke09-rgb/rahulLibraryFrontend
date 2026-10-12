@@ -35,10 +35,10 @@ export class AuthService {
     );
   }
 
-  logout() {
+  logout(sessionExpired = false) {
     localStorage.removeItem(KEY);
     this.current$.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'], sessionExpired ? { queryParams: { expired: 1 } } : {});
   }
 
   register(data: { fullName: string; dateOfBirth: string; address: string; phone: string; email: string; username: string; password: string }) {
@@ -52,6 +52,23 @@ export class AuthService {
 
   private read(): AuthUser | null {
     const raw = localStorage.getItem(KEY);
-    return raw ? JSON.parse(raw) as AuthUser : null;
+    if (!raw) {
+      return null;
+    }
+    const user = JSON.parse(raw) as AuthUser;
+    if (this.isExpired(user.token)) {
+      localStorage.removeItem(KEY);
+      return null;
+    }
+    return user;
+  }
+
+  private isExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      return typeof payload.exp === 'number' && payload.exp * 1000 <= Date.now();
+    } catch {
+      return true;
+    }
   }
 }

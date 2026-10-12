@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -13,9 +13,11 @@ export class LoginComponent {
   loading = false;
   error = '';
 
-  constructor(private auth: AuthService, private router: Router) {
+  constructor(private auth: AuthService, private router: Router, route: ActivatedRoute) {
     if (this.auth.snapshot()) {
       this.goHome();
+    } else if (route.snapshot.queryParamMap.has('expired')) {
+      this.error = 'Your session has expired. Please sign in again.';
     }
   }
 

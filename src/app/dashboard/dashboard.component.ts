@@ -37,6 +37,13 @@ export class DashboardComponent implements OnInit {
   openDetails(type: string, event: Event): void {
     event.stopPropagation();
 
+    if (this.showModal && this.modalType !== type) {
+      // Recreate the table so it lazy-loads the new list from page 1
+      this.closeModal();
+      setTimeout(() => this.openDetails(type, event));
+      return;
+    }
+
     this.modalType = type;
     this.showModal = true;
   }
@@ -118,22 +125,22 @@ export class DashboardComponent implements OnInit {
   }
 
   loadIssuedBooks() {
-    this.api.issues().subscribe({
-      next: (issues:any) => {
-        this.issues = issues.content;
-        this.totalElements = this.issues.length;
-        this.totalPages = Math.ceil(this.totalElements / this.pageSize);
+    this.api.issuedPaged(this.currentPage, this.pageSize).subscribe({
+      next: (res: PagedResponse<BookIssue>) => {
+        this.issues = res.content;
+        this.totalElements = res.totalElements;
+        this.totalPages = res.totalPages;
       },
       error: () => this.error = 'Could not load issued books.'
     });
   }
 
   loadOverdueBooks() {
-    this.api.issues().subscribe({
-      next: (issues:any) => {
-        this.issues = issues.content.filter((i:any) => i.status === 'OVERDUE');
-        this.totalElements = this.issues.length;
-        this.totalPages = Math.ceil(this.totalElements / this.pageSize);
+    this.api.overduePaged(this.currentPage, this.pageSize).subscribe({
+      next: (res: PagedResponse<BookIssue>) => {
+        this.issues = res.content;
+        this.totalElements = res.totalElements;
+        this.totalPages = res.totalPages;
       },
       error: () => this.error = 'Could not load overdue books.'
     });

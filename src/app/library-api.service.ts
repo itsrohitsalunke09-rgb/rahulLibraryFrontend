@@ -100,6 +100,21 @@ export class LibraryApiService {
     return this.http.get<PagedResponse<BookIssue>>(`${environment.apiUrl}/issues`, { params });
   }
 
+  // All copies currently out (including overdue), newest first
+  issuedPaged(page = 0, size = 10) {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<PagedResponse<BookIssue>>(`${environment.apiUrl}/issues/issued`, { params });
+  }
+
+  overduePaged(page = 0, size = 10) {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+    return this.http.get<PagedResponse<BookIssue>>(`${environment.apiUrl}/issues/overdue`, { params });
+  }
+
   issuesCount(status?: string, q?: string) {
     let params = new HttpParams();
     if (status) {
