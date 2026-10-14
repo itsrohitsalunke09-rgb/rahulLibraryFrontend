@@ -1,0 +1,11 @@
+{
+  "headers": [
+    {
+      "source": "/assets/app/(.*)\.apk",
+      "headers": [
+        { "key": "Content-Type", "value": "application/vnd.android.package-archive" },
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ]
+}
